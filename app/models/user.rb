@@ -11,4 +11,13 @@ class User < ActiveRecord::Base
     self.projects
   end
 
+  def self.new_with_email_error
+    self.new do |u|
+      u.errors.add(:email, :not_found, message: "not found in existing users.")
+    end
+  end
+
+  def password_error
+    self.errors.add(:password, :incorrect, message: "is incorrect for the email provided.")
+  end
 end
