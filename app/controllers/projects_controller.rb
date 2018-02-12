@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   def index
-    @projects = Projects.all
+    @projects = Project.all
     respond_to do |format|
       format.html {render :index}
       format.json {render json: @projects}
@@ -34,7 +34,6 @@ class ProjectsController < ApplicationController
     @project.update(project_params)
     if project_params(:tag_names)
       @project.update(tag_names: project_params[:tag_names])
-    end
     else
       redirect_to project_path(@project)
     end

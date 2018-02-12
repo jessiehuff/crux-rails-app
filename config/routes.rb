@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   get '/auth/facebook/callback', to: 'users#create'
 
   devise_for :users
+  get '/users/sign_up' => 'users#new'
+  get '/users/sign_in' => 'sessions#new'
+  get '/home' => 'sessions#index'
+  get 'users/sign_out' => 'sessions#destroy'
 
 
   resources :projects do

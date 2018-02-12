@@ -16,6 +16,7 @@ class Project < ActiveRecord::Base
       end
       self.tags << new_tag
     end
+  end
 
   def tag_names
     tags = self.tags.collect {|tag| tag.name}
