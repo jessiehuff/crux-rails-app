@@ -21,9 +21,16 @@ class SessionsController < ApplicationController
   end
 
   def index
+    @user = current_user
+    @projects = Projects.all
   end
 
   def destroy
+    if logged_in?
+      session.delete :user_id
+      flash[:message] = "You have successfully logged out."
+    end
+    redirect_to users_sign_in_url
   end
 
 private
