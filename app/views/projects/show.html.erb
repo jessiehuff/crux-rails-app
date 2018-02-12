@@ -1,0 +1,16 @@
+<h3>Project Title:</h3>
+  <%= @project.title %>
+
+<h3>Description: </h3>
+  <%= @project.description %>
+
+<h3> Tags: </h3>
+  <ul>
+    <% @project.tags.each do |tag| %>
+      <li><%= tag.name %></li>
+    <% end %>
+  </u>
+
+
+<%= link_to 'Edit', edit_project_path(@project) %>  |
+<%= link_to 'Back', project_path %> 
