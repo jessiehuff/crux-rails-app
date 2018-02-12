@@ -3,9 +3,21 @@ class MessagesController < ApplicationController
   before_action :set_project
 
   def index
+
+  end
+
+  def new
+    @message = Message.new(project_id: @project.id)
   end
 
   def create
+    @message = Message.new(message_params)
+    if @message.save
+      @project = @message.project
+      reidrect_to project_messages_path(@project)
+    else
+      render :new
+    end
   end
 
   def show
