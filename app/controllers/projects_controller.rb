@@ -1,11 +1,11 @@
 class ProjectsController < ApplicationController
+  before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   def index
     @projects = Projects.all
   end
 
   def show
-    @project = Project.find_by(id: params[:id])
   end
 
   def new
@@ -23,7 +23,6 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @project = Project.find_by(id: params[:id])
   end
 
   def update
@@ -40,7 +39,11 @@ class ProjectsController < ApplicationController
   end
 
 private
+  def set_project
+    @project = Post.find(params[:id])
+  end
+
   def project_params
-    params.require(:project).permit(:title, :description)
+    params.require(:project).permit(:title, :description, :tag_ids => [])
   end
 end
