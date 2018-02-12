@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   root 'home#index'
+  get '/auth/facebook/callback', to: 'users#create'
 
   resources :projects do
     resources :messages
