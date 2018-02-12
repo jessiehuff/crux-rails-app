@@ -1,6 +1,11 @@
 class TagsController < ApplicationController
 
   def index
+    @tags = Tag.all
+  end
+
+  def show
+    redirect_to tags_path
   end
 
   def create
@@ -12,8 +17,18 @@ class TagsController < ApplicationController
     end
   end
 
-  def destroy
+  def edit
+    redirect_to tags_path
+  end
 
+  def update
+    @tag.update(tag_params)
+    reidrect_to tags_path
+  end
+
+  def destroy
+    @tag.destroy
+    redirect_to tags_path
   end
 
 private
