@@ -1,0 +1,7 @@
+<% if @projects.empty? %>
+  <h3><%= "You don't have any projects yet. Would you like to create a new one?" %></h3>
+<% else %>
+  <% @projects.each_with_index do |projects, index| %>
+    <%= render partial: "project", locals: {project: project, index: index} %>
+  <% end %>
+<% end %> 
