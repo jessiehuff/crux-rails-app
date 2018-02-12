@@ -22,6 +22,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    render :not_found if !@user
+  end
+
+  def edit
+  end
+
+  def update
+    if @user.update(user_params)
+      flash[:message] = "Information updated!"
+      redirect_to @user
+    else
+      render :edit
+    end
+  end
+
 private
   def user_params
     params.require(:user).permit(:name, :email, :password)
