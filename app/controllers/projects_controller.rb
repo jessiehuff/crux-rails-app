@@ -26,10 +26,12 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    if @project.update(project_params)
-      redirect_to project_path(@project)
+    @project.update(project_params)
+    if project_params(:tag_names)
+      @project.update(tag_names: project_params[:tag_names])
+    end
     else
-      render :show
+      redirect_to project_path(@project)
     end
   end
 
@@ -44,6 +46,6 @@ private
   end
 
   def project_params
-    params.require(:project).permit(:title, :description, :tag_ids => [])
+    params.require(:project).permit(:title, :description, :tag_names, :tag_ids => [])
   end
 end
