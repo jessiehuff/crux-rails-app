@@ -1,4 +1,5 @@
 class TagsController < ApplicationController
+  before_action :set_tag, only: [:update, :destroy]
 
   def index
     @tags = Tag.all
@@ -32,6 +33,10 @@ class TagsController < ApplicationController
   end
 
 private
+  def set_tag
+    @tag = Tag.find_by(id: params[:id])
+  end
+
   def tag_params
     params.require(:tag).permit(:name)
   end
