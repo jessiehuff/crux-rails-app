@@ -4,4 +4,6 @@
   <% @projects.each_with_index do |projects, index| %>
     <%= render partial: "project", locals: {project: project, index: index} %>
   <% end %>
-<% end %> 
+<% end %>
+
+<%= link_to "Add a New Project", new_project_path %> 
