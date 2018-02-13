@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
 
   root 'home#index'
-  get '/auth/facebook/callback', to: 'users#create'
+  get '/auth/facebook/callback'
 
-  devise_for :users
+  devise_for :users, :controllers => {:omniauth_callbacks => "callbacks"}
 
   resources :projects do
     resources :messages

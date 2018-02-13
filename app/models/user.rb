@@ -2,10 +2,21 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, :omniauth_providers => [:facebook]
 
   has_and_belongs_to_many :projects
   has_many :messages
+
+  def self.from_omniauth(auth)
+    where(uid: auth.uid[0..4]).first_or_create do |user|
+      user.username = auth[:info][:email]
+      user.email = auth[:info][:email]
+      user.first_name = auth[:info][:name].split(" ").first
+      user.last_name = auth[:info][:name].split(" ").last
+      user.password = auth[:uid]
+    end
+  end
 
   def all_projects
     self.projects
