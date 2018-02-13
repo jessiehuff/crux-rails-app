@@ -10,6 +10,8 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @messages = @project.messages
+    @tasks = @project.tasks
   end
 
   def new
