@@ -5,7 +5,7 @@ class Project < ActiveRecord::Base
   has_many :project_tags
   has_many :tags, through: :project_tags
 
-  validates :title, :content, presence: true
+  validates :title, :description, presence: true
 
   def tag_names=(tags)
     tag_array = tags.split(",").map{|tag| tag.strip}
