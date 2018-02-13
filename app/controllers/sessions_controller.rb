@@ -1,9 +1,4 @@
 class SessionsController < ApplicationController
-  before_action :authenticate_user!, only: [:index]
-
-  def new
-    @user = User.from_omniauth(auth)
-  end
 
   def create
     @user = User.from_omniauth(auth)

@@ -1,7 +1,10 @@
 class HomeController < ApplicationController
   def index
-    if logged_in?
-      redirect_to home_path
+    if user_signed_in?
+      render :index
+    else
+      @user = User.new
+      render :index
     end
   end
-end 
+end
