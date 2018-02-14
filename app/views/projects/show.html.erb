@@ -1,15 +1,22 @@
-<h3>Project Title:</h3>
+<h2>Project Title:</h2>
   <%= @project.title %>
 
-<h3>Description: </h3>
+<p>Description: </p>
   <%= @project.description %>
 
-<h3> Tags: </h3>
+<p> Tags: </p>
   <ul>
     <% @project.tags.each do |tag| %>
       <li><%= tag.name %></li>
     <% end %>
-  </u>
+  </ul>
 
+  <h2> Project Tasks: </h2>
+    <ul>
+      <% @projects.tasks.each do |task| %>
+        <li><%= task.title %></li>
+        <li><%= task.description %></li>
+        <% end %>
+    </ul>
 
 <%= link_to 'Back', projects_path %>

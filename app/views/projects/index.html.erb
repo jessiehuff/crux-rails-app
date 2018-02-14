@@ -1,15 +1,16 @@
 <% if @projects.empty? %>
   <h3><%= "You don't have any projects yet. Would you like to create a new one?" %></h3>
+
 <% else %>
+<h2>Projects:</h2>
   <% @projects.each do |project| %>
     <h2><%= link_to project.title, project_path(project) %> - </h2>
     <p> <%= project.description %> </p>
   <% end %>
 <% end %>
-</h2>
 
 <br><br>
 <%= link_to "Add a New Project", new_project_path %><br><br><br>
 
 
-<%= link_to "Sign Out", destroy_user_session_path %>
+<%= link_to "Sign Out", destroy_user_session_path, :method => 'delete'%>

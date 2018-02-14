@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  devise_for :users, :controllers => {:omniauth_callbacks => "callbacks"}
+  devise_for :users, :controllers => {sessions: "sessions", :registrations => "registrations", :omniauth_callbacks => "callbacks"}
 
   resources :projects do
     resources :messages
