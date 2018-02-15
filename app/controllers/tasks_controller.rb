@@ -7,7 +7,7 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = project.tasks.build
+    @task = Task.new
   end
 
   def create
@@ -39,14 +39,15 @@ class TasksController < ApplicationController
   end
 
 private
-  def set_tasks
-    @task = Task.find_by(id: params[:id])
+  def set_task
+    @task = Task.find_by(id: params[:task_id])
   end
 
   def set_project
     @project = Project.find_by(id: params[:project_id])
   end
 
-  def tasks_params(:task).permit(:title, :description, :assigned_to, :created_at, :completed_at, :status, :project_id)
+  def tasks_params
+    params.require(:task).permit(:title, :description, :assigned_to, :created_at, :completed_at, :status, :project_id)
   end
 end
