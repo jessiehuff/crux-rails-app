@@ -1,18 +1,19 @@
 class TasksController < ApplicationController
-  before_action :set_task
   before_action :set_project
+  before_action :set_task
 
   def index
     @tasks = @project.tasks
   end
 
   def new
-    @task = Task.new(project_id: @project.id)
+    @task = project.tasks.build
   end
 
   def create
     @task = Task.new(task_params)
     if @task.save
+      @project = @task.project
       redirect_to task_path(@task)
     else
       render :new
@@ -24,7 +25,7 @@ class TasksController < ApplicationController
   end
 
   def edit
-
+    @task = project.task.find(params[:id])
   end
 
   def update
