@@ -1,0 +1,12 @@
+<h2><%= @project.title%>'s Messages:</h2>
+
+<%= link_to "New Message", new_project_message_path(@project, @message) %>
+
+<% if @messages.empty? %>
+  <h3><%= "You don't have any messages."</h3>
+<% else %>
+  <% @messages.each do |msg| %>
+    <h3><%= msg.title %> <%= link_to "View", message_path(msg) %></h3>
+    <p><%= msg.content %> </p>
+    <% end %>
+  <% end %>

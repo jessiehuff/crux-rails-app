@@ -11,7 +11,7 @@ class MessagesController < ApplicationController
   end
 
   def new
-    @message = Message.new
+    @message = Message.new(project_id: @project.id)
     #@message = @project.messages.build
   end
 
@@ -53,7 +53,7 @@ private
   end
 
   def set_message
-    @message = Message.find_by(id: params[:id])
+    @message = Message.where(id: params[:message_id])
   end
 
   def message_params
