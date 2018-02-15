@@ -9,12 +9,17 @@ class User < ActiveRecord::Base
   has_many :messages
 
   def self.from_omniauth(auth)
-    where(uid: auth.uid[0..4]).first_or_create do |user|
-      user.username = auth[:info][:email]
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth[:info][:email]
-      user.first_name = auth[:info][:name].split(" ").first
-      user.last_name = auth[:info][:name].split(" ").last
-      user.password = auth[:uid]
+      user.password = Devise.friendly_token[0,20]
+    end
+  end
+
+  def self.new_with_sessions(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]
+        user.email = data["email"] if user.email.blank?
+      end
     end
   end
 
