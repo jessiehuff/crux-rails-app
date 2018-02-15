@@ -1,0 +1,9 @@
+<h2>All Tags:</h2>
+
+<% if @tags.empty? %>
+  <h3><%= "You don't have any tags yet. Please add one!" %></h3>
+<% else %>
+  <% @tags.each do |tag| %>
+    <p><%= tag.name %></p>
+  <% end %>
+<% end %> 

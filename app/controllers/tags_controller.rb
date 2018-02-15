@@ -5,21 +5,21 @@ class TagsController < ApplicationController
     @tags = Tag.all
   end
 
-  def show
-    redirect_to tags_path
+  def new
+    @tag = Tag.new
   end
 
   def create
     @tag = Tag.new(tag_params)
     if @tag.save
-      redirect_to tags_path
+      redirect_to project_path(@project)
     else
-      render :index
+      render :new
     end
   end
 
   def edit
-    redirect_to tags_path
+    @tag = Tag.find(params[:id])
   end
 
   def update
