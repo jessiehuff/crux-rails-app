@@ -1,0 +1,12 @@
+<h2><%= @project.title%>'s Tasks:</h2>
+
+<%= link_to "New Task", new_project_task_path(@project, @task) %>
+
+<% if @tasks.empty? %>
+  <h3><%= "You don't have any tasks." %></h3>
+<% else %>
+  <% @tasks.each do |task| %>
+    <h3><%= task.title %> <%= link_to "View", project_task_path(@project, @task) %></h3>
+    <p><%= task.content %> </p>
+  <% end %>
+<% end %>

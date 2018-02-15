@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
-  before_action :set_project
-  before_action :set_task
+  before_action :set_project, except: [:show, :edit]
+  before_action :set_task, only: [:edit, :update, :show, :destroy]
 
   def index
     @tasks = @project.tasks
@@ -11,21 +11,23 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = Task.new(project_id: @project.id)
     if @task.save
       @project = @task.project
       redirect_to task_path(@task)
     else
       render :new
+      #binding.pry
     end
   end
 
   def show
     @project = @task.project
+    @task = project.tasks.find(params[:id])
   end
 
   def edit
-    @task = project.task.find(params[:id])
+    @task = project.tasks.find(params[:id])
   end
 
   def update
@@ -40,14 +42,14 @@ class TasksController < ApplicationController
 
 private
   def set_task
-    @task = Task.find_by(id: params[:task_id])
+    @task = Task.find(params[:task_id])
   end
 
   def set_project
-    @project = Project.find_by(id: params[:project_id])
+    @project = Project.find(params[:project_id])
   end
 
-  def tasks_params
+  def task_params
     params.require(:task).permit(:title, :description, :assigned_to, :created_at, :completed_at, :status, :project_id)
   end
 end

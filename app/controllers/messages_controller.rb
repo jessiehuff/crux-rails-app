@@ -1,13 +1,13 @@
 class MessagesController < ApplicationController
-  before_action :set_project
+  before_action :set_project, except: [:show, :edit]
   before_action :set_message, only: [:edit, :update, :show, :destroy]
 
   def index
     @messages = @project.messages.reverse
-    respond_to do |format|
-      format.hmtl {render :index}
-      format.json {render @messages}
-    end
+    #respond_to do |format|
+      #format.hmtl {render :index}
+    #  format.json {render @messages}
+    #end
   end
 
   def new
@@ -19,7 +19,7 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
     if @message.save
       @project = @message.project
-      redirect_to project_messages_path(@project)
+      redirect_to project_messages_path
     else
       render :new
     end
@@ -27,6 +27,7 @@ class MessagesController < ApplicationController
 
   def show
     @project = @message.project
+    @messages = @project.messages
     respond_to do |format|
       format.html {render :show}
       format.json {render json: @message}
@@ -49,11 +50,11 @@ class MessagesController < ApplicationController
 
 private
   def set_project
-    @project = Project.where(id: params[:project_id])
+    @project = Project.find_by(id: params[:project_id])
   end
 
   def set_message
-    @message = Message.where(id: params[:message_id])
+    @message = Message.find_by(id: params[:message_id])
   end
 
   def message_params
