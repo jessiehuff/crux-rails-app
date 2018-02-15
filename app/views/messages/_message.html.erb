@@ -1,13 +1,13 @@
-<%= form_for([@project, @message]) do |f| %>
+<%= form_for([:project, @message]) do |f| %>
   <div class="field">
     <%= f.label :title %>
     <%= f.text_field :title %>
-  </div>
+  </div><br><br>
 
   <div class="field">
-    <%= f.label :content %>
+    <%= f.label :content %><br>
     <%= f.text_area :content %>
-  </div>
+  </div><br>
 
   <div class="action">
     <%= f.submit %>

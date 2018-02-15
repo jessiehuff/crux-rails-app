@@ -6,13 +6,13 @@ class MessagesController < ApplicationController
     @messages = @project.messages.reverse
     respond_to do |format|
       format.hmtl {render :index}
-      format.json {render: @messages}
+      format.json {render @messages}
     end
   end
 
   def new
     @message = Message.new
-    @message = project.messages.build
+    #@message = @project.messages.build
   end
 
   def create
@@ -49,7 +49,7 @@ class MessagesController < ApplicationController
 
 private
   def set_project
-    @project = Project.find(params[:id])
+    @project = Project.where(id: params[:project_id])
   end
 
   def set_message
