@@ -4,13 +4,14 @@
 <p>Description: </p>
   <%= @project.description %>
 
-<p> Tags: </p>
+<h3> Tags: </h3>
   <ul>
     <% @project.tags.each do |tag| %>
       <li><%= tag.name %></li>
     <% end %>
   </ul>
 
+<br><br>
   <h2> Project Messages: </h2>
     <ul>
       <% @project.messages.each do |msg| %>
@@ -18,7 +19,20 @@
         <li><%= msg.content %></li>
         <% end %>
     </ul>
-  <h3>Add Message:</h3>
-    <%= render 'messages/message' %>
+  <h3><%= link_to "Add Message", new_project_message_path %></h3>
+
+<br><br>
+  <h2> Project Tasks: </h2>
+    <ul>
+      <% @project.tasks.each do |task| %>
+        <li><%= task.title %></li>
+        <li><%= task.description %></li>
+        <li><%= task.assigned_to %></li>
+        <li><%= task.status %> </li>
+        <% end %>
+    </ul>
+  <h3><%= link_to "Add Task", new_project_task_path %></h3>
+
+<br><br>
 
 <%= link_to 'Back', projects_path %>
