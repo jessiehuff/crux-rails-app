@@ -12,5 +12,6 @@
 <br><br>
 <%= link_to "Add a New Project", new_project_path %><br><br><br>
 
-
-<%= link_to "Sign Out", destroy_user_session_path, :method => 'delete'%>
+<% if current_user %>
+<%= link_to "Sign Out", destroy_user_session_path, {method: :delete}%>
+<% end %>

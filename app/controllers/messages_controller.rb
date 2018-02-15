@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: [:edit, :update, :show, :destroy]
   before_action :set_project
+  before_action :set_message, only: [:edit, :update, :show, :destroy]
 
   def index
     @messages = @project.messages.reverse
@@ -11,7 +11,7 @@ class MessagesController < ApplicationController
   end
 
   def new
-    @message = Message.new(project_id: @project.id)
+    @message = project.messages.build
   end
 
   def create
@@ -33,7 +33,7 @@ class MessagesController < ApplicationController
   end
 
   def edit
-    @project = @message.project
+    @message = project.messages.find(params[:id])
   end
 
   def update
