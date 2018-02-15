@@ -11,6 +11,7 @@ class MessagesController < ApplicationController
   end
 
   def new
+    @message = Message.new
     @message = project.messages.build
   end
 
@@ -48,11 +49,7 @@ class MessagesController < ApplicationController
 
 private
   def set_project
-    if params[:id]
-      @project = Project.find_by(id: params[:id])
-    else
-      @project = Project.find_by(id: params[:project_id])
-    end
+    @project = Project.find(params[:id])
   end
 
   def set_message

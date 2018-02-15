@@ -19,7 +19,7 @@
         <li><%= msg.content %></li>
         <% end %>
     </ul>
-  <h3><%= link_to "Add Message", new_project_message_path %></h3>
+  <h3><%= link_to "Add Message", new_project_message_path(@project, @message) %></h3>
 
 <br><br>
   <h2> Project Tasks: </h2>
@@ -31,7 +31,7 @@
         <li><%= task.status %> </li>
         <% end %>
     </ul>
-  <h3><%= link_to "Add Task", new_project_task_path %></h3>
+  <h3><%= link_to "Add Task", new_project_task_path(@project, @task) %></h3>
 
 <br><br>
 
