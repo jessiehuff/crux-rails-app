@@ -11,6 +11,7 @@ class TagsController < ApplicationController
 
   def create
     @tag = Tag.new(tag_params)
+    #@project = Project.find(params[:project_id])
     if @tag.save
       redirect_to project_path(@project)
     else

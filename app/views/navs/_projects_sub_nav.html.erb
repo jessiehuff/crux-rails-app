@@ -1,0 +1,9 @@
+<nav class="navbar navbar-default">
+  <div class="container">
+      <ul class="subnav nav navbar-nav">
+        <li><%= link_to "View Project", project_path(@project) %></li>
+        <li><%= link_to "Tasks", project_tasks_path(@project) %></li>
+        <li><%= link_to "Messages", project_messages_path(@project) %></li>
+      <ul>
+  </div>
+</nav>

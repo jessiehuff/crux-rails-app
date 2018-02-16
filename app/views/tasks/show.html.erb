@@ -1,0 +1,8 @@
+<h2><%= @task.title %></h2>
+<p><%= @task.description %></p>
+<p><%= @task.status %></p>
+
+<br>
+<%= link_to "Edit", edit_project_task_path(@project, @task) %>
+<br><br>
+<%= button_to "Delete", project_tasks_path(@task), method: :delete %>

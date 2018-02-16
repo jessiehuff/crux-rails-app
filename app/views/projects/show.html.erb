@@ -26,10 +26,11 @@
   <h2> Project Tasks: </h2>
     <ul>
       <% @project.tasks.each do |task| %>
-        <li><%= task.title %></li>
-        <li><%= task.description %></li>
-        <li><%= task.assigned_to %></li>
-        <li><%= task.status %> </li>
+        <li><%= link_to task.title, project_task_path(@project, task) %>
+            <ol>Description: <%= task.description %></ol>
+            <ol>Assigned to: <%= task.assigned_to %></ol>
+            <ol>Status: <%= task.status %> </ol>
+          </li>
         <% end %>
     </ul>
   <h3><%= link_to "Add Task", new_project_task_path(@project, @task) %></h3>

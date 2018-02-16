@@ -11,28 +11,30 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(project_id: @project.id)
+    @task = Task.new(task_params)
+    project_id = params["project_id"]
+    @task.project_id = project_id
+    binding.pry
     if @task.save
       @project = @task.project
-      redirect_to task_path(@task)
+      redirect_to project_tasks_path(@task)
     else
       render :new
-      #binding.pry
     end
   end
 
   def show
     @project = @task.project
-    @task = project.tasks.find(params[:id])
   end
 
   def edit
-    @task = project.tasks.find(params[:id])
   end
 
   def update
     @task.update(task_params)
-    redirect_to task_path(@task)
+    binding.pry
+    flash[:message] = "Task updated!"
+    redirect_to project_tasks_path(@task)
   end
 
   def destroy
@@ -42,7 +44,7 @@ class TasksController < ApplicationController
 
 private
   def set_task
-    @task = Task.find(params[:task_id])
+    @task = Task.find(params[:id])
   end
 
   def set_project
@@ -50,6 +52,6 @@ private
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :assigned_to, :created_at, :completed_at, :status, :project_id)
+    params.require(:task).permit(:title, :description, :assigned_to, :status)
   end
 end
