@@ -11,15 +11,17 @@ class MessagesController < ApplicationController
   end
 
   def new
-    @message = Message.new(project_id: @project.id)
+    @message = Message.new
     #@message = @project.messages.build
   end
 
   def create
     @message = Message.new(message_params)
+    project_id = params["project_id"]
+    @message.project_id = project_id
     if @message.save
       @project = @message.project
-      redirect_to project_messages_path
+      redirect_to project_messages_path(@message)
     else
       render :new
     end
@@ -27,15 +29,10 @@ class MessagesController < ApplicationController
 
   def show
     @project = @message.project
-    @messages = @project.messages
-    respond_to do |format|
-      format.html {render :show}
-      format.json {render json: @message}
-    end
   end
 
   def edit
-    @message = project.messages.find(params[:id])
+
   end
 
   def update
@@ -50,14 +47,14 @@ class MessagesController < ApplicationController
 
 private
   def set_project
-    @project = Project.find_by(id: params[:project_id])
+    @project = Project.find_by(params[:id])
   end
 
   def set_message
-    @message = Message.find_by(id: params[:message_id])
+    @message = Message.find_by(params[:message_id])
   end
 
   def message_params
-    params.require(:message).permit(:title, :content, :created_at, :updated_at, :project_id, :user_id)
+    params.require(:message).permit(:title, :content)
   end
 end

@@ -6,7 +6,8 @@
   <h3><%= "You don't have any messages." %></h3>
 <% else %>
   <% @messages.each do |msg| %>
-    <h3><%= msg.title %> <%= link_to "View", project_message_path %></h3>
+    <h3><%= msg.title %></h3>
     <p><%= msg.content %> </p>
+    <%= link_to "View", project_message_path %>
   <% end %>
 <% end %>

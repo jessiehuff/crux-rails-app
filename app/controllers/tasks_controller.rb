@@ -14,7 +14,6 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     project_id = params["project_id"]
     @task.project_id = project_id
-    binding.pry
     if @task.save
       @project = @task.project
       redirect_to project_tasks_path(@task)
@@ -25,14 +24,15 @@ class TasksController < ApplicationController
 
   def show
     @project = @task.project
+
   end
 
   def edit
+
   end
 
   def update
     @task.update(task_params)
-    binding.pry
     flash[:message] = "Task updated!"
     redirect_to project_tasks_path(@task)
   end

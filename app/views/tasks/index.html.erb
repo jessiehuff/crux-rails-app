@@ -6,7 +6,8 @@
   <h3><%= "You don't have any tasks." %></h3>
 <% else %>
   <% @tasks.each do |task| %>
-    <h3><%= task.title %> <%= link_to "View", project_task_path(@project, @task) %></h3>
-    <p><%= task.content %> </p>
+    <h3><%= task.title %></h3>
+    <p><%= task.description%> </p>
+    <%= link_to "View", project_task_path %>
   <% end %>
 <% end %>

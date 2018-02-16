@@ -6,4 +6,11 @@
   <% @tags.each do |tag| %>
     <p><%= tag.name %></p>
   <% end %>
-<% end %> 
+<% end %>
+
+<br>
+<h3>Add a New Tag:</h3>
+<%= link_to 'New', new_tag_path %>
+
+<br><br><br>
+<%= link_to 'Back', projects_path %>

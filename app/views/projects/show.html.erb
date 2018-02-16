@@ -16,8 +16,9 @@
   <h2> Project Messages: </h2>
     <ul>
       <% @project.messages.each do |msg| %>
-        <li><%= msg.title %></li>
-        <li><%= msg.content %></li>
+        <li><%= link_to msg.title %>
+          <ol><%= msg.content %></ol>
+        </li>
         <% end %>
     </ul>
   <h3><%= link_to "Add Message", new_project_message_path(@project, @message) %></h3>
