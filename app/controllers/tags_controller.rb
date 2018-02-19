@@ -11,10 +11,10 @@ class TagsController < ApplicationController
 
   def create
     @tag = Tag.new(tag_params)
-    @project = Project.find(params[:project_id])
     project_id = params["project_id"]
     @tag.project_id = project_id
     if @tag.save
+      @project = @tag.project
       redirect_to project_path(@project)
     else
       render :new

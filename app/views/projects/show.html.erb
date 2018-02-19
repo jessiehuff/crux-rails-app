@@ -39,5 +39,6 @@
 <br><br>
 <%= link_to "Edit this Project", edit_project_path(@project) %>
 <br><br>
-
+<%= link_to "Delete this Project", project_path(@project), method: 'delete' %>
+<br><br>
 <%= link_to 'Back', projects_path %>
