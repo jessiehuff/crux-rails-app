@@ -1,5 +1,5 @@
 <h1>Edit Task: </h1>
 
-<%= render 'task' %>
+<%= render partial: 'task', locals: {project: @project, task: @task} %>
 
 <%= link_to 'Back', project_tasks_path(@task)%>

@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_project, except: [:show, :edit]
+  before_action :set_project
   before_action :set_task, only: [:edit, :update, :show, :destroy]
 
   def index
