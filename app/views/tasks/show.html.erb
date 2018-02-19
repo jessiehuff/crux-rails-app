@@ -5,7 +5,7 @@
 <br>
 <%= link_to "Edit", edit_project_task_path %>
 <br><br>
-<%= button_to "Delete", project_task_path, method: :delete %>
+<%= link_to "Delete Task", project_task_path(@project, @task), method: 'delete' %>
 
 <br><br><br>
 
