@@ -2,6 +2,7 @@
 <p><%= @message.content %></p>
 
 <%= link_to "Edit", edit_project_message_path(@project, @message) %>
-
 <br><br>
+<%= link_to "Delete Message", project_message_path(@project, @message), method: 'delete' %>
+<br><br><br>
 <%= link_to "Back", project_path(@project) %>

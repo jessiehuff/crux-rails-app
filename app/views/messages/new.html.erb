@@ -1,6 +1,6 @@
 <h1>New Message</h1>
 
-<%= render 'message' %>
+<%= render partial: 'message', locals: {project: @project, message: @message} %>
 
 <br><br>
 <%= link_to 'Back', projects_path %>

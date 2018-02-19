@@ -16,7 +16,6 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
-    @project.messages.build
   end
 
   def create
