@@ -8,6 +8,8 @@
   <% @tasks.each do |task| %>
     <h3><%= task.title %></h3>
     <p><%= task.description%> </p>
-    <%= link_to "View", project_task_path %>
+
   <% end %>
 <% end %>
+
+<%= link_to "Back", project_path(@project) %>
