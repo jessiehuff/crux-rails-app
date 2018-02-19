@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @project = Project.new4
+    @project = Project.new
     @project.tags.build
   end
 
@@ -30,8 +30,8 @@ class ProjectsController < ApplicationController
 
   def update
     @project.update(project_params)
-    if project_params(:tag_names)
-      @project.update(tag_names: project_params[:tag_names])
+    if project_params[:tags_attributes]
+      @project.update(tags_attributes: project_params[:tags_attributes])
     else
       redirect_to project_path(@project)
     end
@@ -48,6 +48,6 @@ private
   end
 
   def project_params
-    params.require(:project).permit(:title, :description, :tag_names, :tag_ids => [])
+    params.require(:project).permit(:title, :description, tags_attributes: [:name], :tag_ids => [])
   end
 end

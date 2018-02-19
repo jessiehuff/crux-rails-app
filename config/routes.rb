@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :projects do
     resources :messages
     resources :tasks
+    resources :tags
   end
 
   resources :tags

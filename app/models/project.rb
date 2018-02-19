@@ -7,8 +7,9 @@ class Project < ActiveRecord::Base
 
   validates :title, :description, presence: true
 
-  def tag_names=(tags)
-    tag_array = tags.split(",").map{|tag| tag.strip}
+  def tags_attributes=(tags)
+    binding.pry
+    tag_array = tags["0"]["name"].split(",").map{|tag| tag.strip}
     tag_array.each do |tag|
       new_tag = Tag.find_or_create_by(name: tag)
       if self.tags.include?(new_tag)
@@ -18,7 +19,7 @@ class Project < ActiveRecord::Base
     end
   end
 
-  def tag_names
+  def tags_attributes
     tags = self.tags.collect {|tag| tag.name}
     tags.join(",")
   end
