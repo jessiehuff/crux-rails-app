@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_action :set_project, except: [:show, :edit]
+  before_action :set_project
   before_action :set_message, only: [:edit, :update, :show, :destroy]
 
   def index
@@ -37,6 +37,7 @@ class MessagesController < ApplicationController
 
   def update
     @message.update(message_params)
+    redirect_to project_messages_path(@project)
   end
 
   def destroy
