@@ -12,6 +12,26 @@
 <% end %>
 <br><br>
 
+<h2>Active Tasks:</h2>
+<% if @tasks.active.empty? %>
+  <h3><%= "You don't have any active tasks." %></h3>
+<% else %>
+  <% @tasks.active.each do |task| %>
+    <h3><%= task.title %></h3>
+    <p><%= task.description%> </p>
+  <% end %>
+<% end %>
+<br><br>
+
+<h2>Completed Tasks:</h2>
+<% if @tasks.complete.empty? %>
+  <h3><%= "You don't have any completed tasks." %></h3>
+<% else %>
+  <% @tasks.complete.each do |task| %>
+    <h3><%= task.title %></h3>
+    <p><%= task.description%> </p>
+  <% end %>
+<% end %>
 
 
 

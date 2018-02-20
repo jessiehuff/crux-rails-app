@@ -22,16 +22,4 @@ class Project < ActiveRecord::Base
     tags = self.tags.collect {|tag| tag.name}
     tags.join(",")
   end
-
-  def active_tasks
-    self.tasks.active
-  end
-
-  def complete_tasks
-    self.tasks.complete
-  end
-
-  def tasks_complete?
-    tasks.any? {|task| task.status == "active"} ? false : true
-  end
 end

@@ -7,4 +7,15 @@ class Task < ActiveRecord::Base
   scope :complete, -> {where(status: 1)}
   scope :active, -> {where(status: 0)}
 
+  def active
+    self.status == "active"
+  end
+
+  def complete
+    self.status == "complete"
+  end
+
+  def tasks_complete?
+    tasks.any? {|task| task.status == "active"} ? false : true
+  end
 end
