@@ -16,7 +16,7 @@ class TasksController < ApplicationController
     @task.project_id = project_id
     if @task.save
       @project = @task.project
-      redirect_to project_tasks_path(@task)
+      redirect_to project_tasks_path(@project)
     else
       render :new
     end
