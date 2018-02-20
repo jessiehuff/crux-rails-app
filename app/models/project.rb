@@ -8,7 +8,6 @@ class Project < ActiveRecord::Base
   validates :title, :description, presence: true
 
   def tags_attributes=(tags)
-    binding.pry
     tag_array = tags["0"]["name"].split(",").map{|tag| tag.strip}
     tag_array.each do |tag|
       new_tag = Tag.find_or_create_by(name: tag)
