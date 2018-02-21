@@ -1,4 +1,5 @@
 class TagsController < ApplicationController
+  before_action :set_project, only: [:new, :create, :update, :destroy]
   before_action :set_tag, only: [:update, :destroy]
 
   def index
@@ -10,12 +11,13 @@ class TagsController < ApplicationController
   end
 
   def create
-    @tag = Tag.new(tag_params)
-    project_id = params["project_id"]
-    @tag.project_id = project_id
-    if @tag.save
-      @project = @tag.project
+    @tag = Tag.find_or_create_by(tag_params)
+    if @project
+      @project.tags << @tag
+      @project.save
       redirect_to project_path(@project)
+    elsif @tag.persisted?
+      redirect_to tags_path
     else
       render :new
     end
@@ -36,6 +38,11 @@ class TagsController < ApplicationController
   end
 
 private
+
+  def set_project
+    @project = Project.find_by(id: params[:project_id])
+  end
+
   def set_tag
     @tag = Tag.find_by(id: params[:id])
   end

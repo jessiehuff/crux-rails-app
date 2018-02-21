@@ -1,6 +1,6 @@
 <%= render partial: 'layouts/errors', locals: {object: @tag} %>
 
-<%= form_for @tag do |f| %>
+<%= form_for([project, tag]) do |f| %>
   <div class="field">
     <%= f.label :name %>
     <%= f.text_field :name %>
