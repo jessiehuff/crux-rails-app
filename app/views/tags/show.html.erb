@@ -1,0 +1,12 @@
+<h2><%= @tag.name %></h2>
+
+<br>
+<%= link_to "Edit", edit_project_tag_path %>
+
+<br><br>
+
+<%= link_to "Delete Tag", project_tag_path(@project, @tag), method: 'delete' %>
+
+<br><br><br>
+
+<%= link_to "Back", project_path(@project) %>

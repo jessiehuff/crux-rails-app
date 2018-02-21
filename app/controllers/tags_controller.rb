@@ -1,9 +1,12 @@
 class TagsController < ApplicationController
-  before_action :set_project, only: [:new, :create, :update, :destroy]
-  before_action :set_tag, only: [:update, :destroy]
+  before_action :set_project, only: [:new, :create, :show, :update, :destroy]
+  before_action :set_tag, only: [:show,:edit, :update, :destroy]
 
   def index
     @tags = Tag.all
+  end
+
+  def show
   end
 
   def new
@@ -24,12 +27,11 @@ class TagsController < ApplicationController
   end
 
   def edit
-    @tag = Tag.find(params[:id])
   end
 
   def update
     @tag.update(tag_params)
-    reidrect_to tags_path
+    redirect_to tags_path
   end
 
   def destroy

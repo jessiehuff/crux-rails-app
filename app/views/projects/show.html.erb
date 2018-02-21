@@ -7,7 +7,7 @@
 <h3> Tags: </h3>
   <ul>
     <% @project.tags.each do |tag| %>
-      <li><%= tag.name %></li>
+      <li><%= link_to tag.name, project_tag_path(@project, tag) %></li>
     <% end %>
   </ul>
   <h4><%= link_to "Add a Tag", new_project_tag_path(@project) %></h4>
