@@ -37,7 +37,8 @@ class MessagesController < ApplicationController
 
   def update
     @message.update(message_params)
-    redirect_to project_messages_path(@project)
+    flash[:message] = "Message updated!"
+    redirect_to project_messages_path(@message)
   end
 
   def destroy

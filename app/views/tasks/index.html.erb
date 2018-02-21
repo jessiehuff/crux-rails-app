@@ -2,14 +2,6 @@
 
 <%= link_to "New Task", new_project_task_path(@project, @task) %>
 
-<% if @tasks.empty? %>
-  <h3><%= "You don't have any tasks." %></h3>
-<% else %>
-  <% @tasks.each do |task| %>
-    <h3><%= task.title %></h3>
-    <p><%= task.description%> </p>
-  <% end %>
-<% end %>
 <br><br>
 
 <h2>Active Tasks:</h2>
@@ -33,6 +25,6 @@
   <% end %>
 <% end %>
 
-
+<br><br>
 
 <%= link_to "Back", project_path(@project) %>

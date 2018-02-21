@@ -32,6 +32,7 @@ class ProjectsController < ApplicationController
     @project.update(project_params)
     if project_params[:tags_attributes]
       @project.update(tags_attributes: project_params[:tags_attributes])
+      redirect_to project_path(@project)
     else
       redirect_to project_path(@project)
     end
