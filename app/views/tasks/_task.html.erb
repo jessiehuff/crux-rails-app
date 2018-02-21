@@ -16,9 +16,9 @@
     <%= f.text_area :assigned_to %> <br><br>
   </div>
 
-  <div class="field">
-    <input class="toggle-all" type="checkbox">
-    <label for="toggle-all">Mark as complete</label>
+  <div class="option_item">
+    <%= hidden_field_tag :status, '' %>
+    <p>Mark as complete: <%= check_box_tag :status, checked = "completed" %> </p>
   </div>
 
   <br><br>
