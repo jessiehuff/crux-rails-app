@@ -16,9 +16,9 @@
     <%= f.text_area :assigned_to %> <br><br>
   </div>
 
-  <div class="option_item">
-    <%= hidden_field_tag :status, '' %>
-    <p>Mark as complete: <%= check_box_tag :status, checked = "completed" %> </p>
+  <div class="field">
+    <%= f.label :status %>
+    <p>Mark as complete: <%= f.check_box :status, {}, "active", "complete" %> </p>
   </div>
 
   <br><br>

@@ -1,10 +1,21 @@
 <%= render partial: 'layouts/errors', locals: {object: @tag} %>
 
 <%= form_for([project, tag]) do |f| %>
+  <div class="checkboxes">
+    <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name, checked: project.tags) %>
+  </div>
+  <br><br>
   <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div><br><br>
+    <p>Create a New Tag:</p>
+    <ul>
+      <%= f.fields_for :tags do |tag| %>
+      <li>
+        <%= tag.label :name %>
+        <%= tag.text_field :name, id: "Name" %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
 
   <div class="action">
     <%= f.submit %>
