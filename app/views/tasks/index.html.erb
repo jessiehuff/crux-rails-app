@@ -9,7 +9,7 @@
   <h3><%= "You don't have any active tasks." %></h3>
 <% else %>
   <% @tasks.active.each do |task| %>
-    <h3><%= task.title %></h3>
+    <h3><%= link_to task.title, project_task_path(@project, task) %></h3>
     <p><%= task.description%> </p>
   <% end %>
 <% end %>
@@ -20,7 +20,7 @@
   <h3><%= "You don't have any completed tasks." %></h3>
 <% else %>
   <% @tasks.complete.each do |task| %>
-    <h3><%= task.title %></h3>
+    <h3><%= link_to task.title, project_task_path(@project, task) %></h3>
     <p><%= task.description%> </p>
   <% end %>
 <% end %>
