@@ -1,7 +1,7 @@
 class Task < ActiveRecord::Base
   belongs_to :project
 
-  validates :title, :description, :status, presence: true
+  validates :title, :description, presence: true
 
   enum status: [:active, :complete]
   scope :complete, -> {where(status: 1)}

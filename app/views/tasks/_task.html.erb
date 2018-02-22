@@ -17,8 +17,8 @@
   </div>
 
   <div class="field">
-    <%= hidden_field_tag "checked[#{task.status}]", "false" %>
-    <p>Mark as complete:<%= check_box_tag "checked[#{task.status}]", "true", true %></p>
+    <p>Mark as complete:
+      <%= f.check_box(:status, {}, "complete", "active")%> </p>
   </div>
 
   <br><br>

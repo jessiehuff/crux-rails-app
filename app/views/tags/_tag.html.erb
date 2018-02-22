@@ -4,7 +4,7 @@
   <div class="checkboxes">
     <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name, checked: project.tags) %>
   </div>
-  <br><br>
+  <br>
   <div class="field">
     <p>Create a New Tag:</p>
     <ul>
