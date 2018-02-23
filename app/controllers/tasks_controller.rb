@@ -24,17 +24,15 @@ class TasksController < ApplicationController
 
   def show
     @project = @task.project
-
   end
 
   def edit
-
   end
 
   def update
     @task.update(task_params)
     flash[:message] = "Task updated!"
-    redirect_to project_tasks_path(@task)
+    redirect_to project_tasks_path
   end
 
   def destroy

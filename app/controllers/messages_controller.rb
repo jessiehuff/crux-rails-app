@@ -4,15 +4,10 @@ class MessagesController < ApplicationController
 
   def index
     @messages = @project.messages.reverse
-    #respond_to do |format|
-      #format.hmtl {render :index}
-    #  format.json {render @messages}
-    #end
   end
 
   def new
     @message = Message.new
-    #@message = @project.messages.build
   end
 
   def create
@@ -32,7 +27,6 @@ class MessagesController < ApplicationController
   end
 
   def edit
-
   end
 
   def update

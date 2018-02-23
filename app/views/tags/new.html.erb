@@ -3,4 +3,5 @@
 <%= render partial: 'tag', locals: {project: @project, tag: @tag} %>
 
 <br><br>
-<%= link_to 'Back', projects_path %>
+
+<%= link_to 'Back', project_path(@project) %>
