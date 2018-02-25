@@ -13,7 +13,7 @@ http://jessiehuff.com/crux_making_communication_simpler
 
 
 ### Installation Guide
-To install and use this project, fork and clone the repo. Then, cd crux-rails-app and run `bundle install` in your command line, start a local Rails server (by running `rails s`), and navigate to localhost:3000/.
+To install and use this project, fork and clone the repo. Then, cd crux-rails-app, run `bundle install` and `rake db:migrate` in your command line, start a local Rails server (by running `rails s`), and navigate to localhost:3000/.
 
 ### Contributors Guide
 Bug reports and pull requests are welcome on GitHub at https://github.com/jessiehuff/crux-rails-app. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
