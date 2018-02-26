@@ -31,7 +31,7 @@ class MessagesController < ApplicationController
 
   def update
     @message.update(message_params)
-    flash[:message] = "Message updated!"
+    flash[:notice] = "Message updated!"
     redirect_to project_messages_path(@message)
   end
 
