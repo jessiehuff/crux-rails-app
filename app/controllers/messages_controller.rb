@@ -16,7 +16,7 @@ class MessagesController < ApplicationController
     @message.project_id = project_id
     if @message.save
       @project = @message.project
-      redirect_to project_messages_path(@message)
+      redirect_to project_messages_path(@project)
     else
       render :new
     end
@@ -31,23 +31,22 @@ class MessagesController < ApplicationController
 
   def update
     @message.update(message_params)
-    flash[:notice] = "Message updated!"
-    redirect_to project_messages_path(@message)
+    flash[:message] = "Message updated!"
+    redirect_to project_messages_path
   end
 
   def destroy
-    @project = @message.project
     @message.destroy
     redirect_to project_messages_path(@project)
   end
 
 private
   def set_project
-    @project = Project.find_by(params[:id])
+    @project = Project.find(params[:project_id])
   end
 
   def set_message
-    @message = Message.find_by(params[:message_id])
+    @message = Message.find(params[:id])
   end
 
   def message_params

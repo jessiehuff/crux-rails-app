@@ -5,9 +5,9 @@
 <% if @messages.empty? %>
   <h3><%= "You don't have any messages." %></h3>
 <% else %>
-  <% @messages.each do |msg| %>
-    <h3><%= link_to msg.title, project_message_path(@project, msg) %></h3>
-    <p><%= msg.content %> </p>
+  <% @messages.each do |message| %>
+    <h3><%= link_to message.title, project_message_path(@project, message) %></h3>
+    <p><%= message.content %> </p>
   <% end %>
 <% end %>
 
