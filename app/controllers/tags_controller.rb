@@ -14,8 +14,16 @@ class TagsController < ApplicationController
   end
 
   def create
-    @tag = Tag.find_or_create_by(tag_params)
-    if @project
+    if tag_params["name"] == "" #tag doesnt exist/field empty
+      @tag = Tag.where(id: tag_params["tag_ids"])
+      binding.pry
+      if @project
+        @project.tags << @tag
+        @project.save
+        redirect_to project_path(@project)
+      end
+    elsif @project
+      @tag = Tag.new(tag_params)
       @project.tags << @tag
       @project.save
       redirect_to project_path(@project)
@@ -50,6 +58,6 @@ private
   end
 
   def tag_params
-    params.require(:tag).permit(:name)
+    params.require(:tag).permit(:name, tag_ids: [])
   end
 end

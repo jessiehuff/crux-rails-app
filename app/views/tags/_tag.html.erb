@@ -7,15 +7,9 @@
   <br>
   <div class="field">
     <p>Create a New Tag:</p>
-    <ul>
-      <%= f.fields_for :tags do |tag| %>
-      <li>
-        <%= tag.label :name %>
-        <%= tag.text_field :name, id: "Name" %>
-      </li>
-      <% end %>
-    </ul>
-  </div>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div><br>
 
   <div class="action">
     <%= f.submit %>
