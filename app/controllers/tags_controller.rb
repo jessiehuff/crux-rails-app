@@ -14,15 +14,7 @@ class TagsController < ApplicationController
   end
 
   def create
-    if tag_params["name"] == "" #tag doesnt exist/field empty
-      @tag = Tag.where(id: tag_params["tag_ids"])
-      binding.pry
-      if @project
-        @project.tags << @tag
-        @project.save
-        redirect_to project_path(@project)
-      end
-    elsif @project
+    if @project
       @tag = Tag.new(tag_params)
       @project.tags << @tag
       @project.save
