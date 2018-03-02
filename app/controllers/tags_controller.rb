@@ -50,6 +50,6 @@ private
   end
 
   def tag_params
-    params.require(:tag).permit(:name, tag_ids: [])
+    params.require(:tag).permit(:name)
   end
 end

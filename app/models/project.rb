@@ -7,6 +7,14 @@ class Project < ActiveRecord::Base
 
   validates :title, :description, presence: true
 
+  def self.search(search)
+    if search
+      joins(:tags).where('name LIKE ?', "%#{search}%")
+    else
+      Project.all
+    end
+  end
+
   def tags_attributes=(tags)
     tag_array = tags["0"]["name"].split(",").map{|tag| tag.strip}
     tag_array.each do |tag|

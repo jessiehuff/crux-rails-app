@@ -3,6 +3,13 @@
 
 <% else %>
 <h2>Projects:</h2>
+<br>
+  <h3>Search by Project Tag/Category:</h3>
+  <%= form_tag(projects_path, method: :get, id: "search-form") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search Projects" %>
+    <%= submit_tag 'Search', name: nil %>
+  <% end %>
+  <br><br>
   <% @projects.each do |project| %>
     <h2><%= link_to project.title, project_path(project) %> - </h2>
     <p> <%= project.description %> </p>

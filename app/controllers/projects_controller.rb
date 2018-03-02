@@ -2,7 +2,14 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   def index
-    @projects = Project.all
+    if params[:search]
+      @projects = Project.search(params[:search]).order("created_at DESC")
+      if params[:search] = ""
+        @projects = Project.all
+      end
+    else
+      @projects = Project.all
+    end
   end
 
   def show
