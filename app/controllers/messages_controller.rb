@@ -16,9 +16,10 @@ class MessagesController < ApplicationController
     @message.project_id = project_id
     if @message.save
       @project = @message.project
-      redirect_to project_messages_path(@project)
+      render json: @message, status: 201
     else
-      render :new
+      flash[:message] = @message.errors.full_messages
+      render json: {errors: @comment.errors.full_messages}, status: 400
     end
   end
 
