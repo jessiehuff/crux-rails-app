@@ -10,11 +10,21 @@ class ProjectsController < ApplicationController
     else
       @projects = Project.all
     end
+
+    respond_to do |format| 
+      format.html {render :index}
+      format.json {render json: @projects}
+    end
   end
 
   def show
     @messages = @project.messages
     @tasks = @project.tasks
+
+    respond_to do |format| 
+      format.html {render :show}
+      format.json {render json: @project}
+    end 
   end
 
   def new
@@ -39,9 +49,9 @@ class ProjectsController < ApplicationController
     @project.update(project_params)
     if project_params[:tags_attributes]
       @project.update(tags_attributes: project_params[:tags_attributes])
-      redirect_to project_path(@project)
+      redirect_to @project
     else
-      redirect_to project_path(@project)
+      render :action => 'edit'
     end
   end
 
