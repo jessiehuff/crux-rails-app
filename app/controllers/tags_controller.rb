@@ -4,6 +4,10 @@ class TagsController < ApplicationController
 
   def index
     @tags = Tag.all
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @tags }
+    end
   end
 
   def show
