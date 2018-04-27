@@ -12,7 +12,7 @@
   <% end %>
   <br><br>
   <% @projects.each do |project| %>
-    <div class="card border-light" style="max-width: 15rem; min_width: 15rem;">
+    <div class="card border-light" style="max-width: 15rem; min-width: 15rem;">
       <div class="project card-body">
     <h2 class="projectTitle"><%= link_to project.title, project_path(project) %> </h2>
     <div id="description-<%= project.id%>" class="text-muted"><%= project.description.truncate(23)%>

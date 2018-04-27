@@ -1,33 +1,53 @@
-<h3>Project Title:</h3>
-<h1><%= @project.title %> </h1>
+<div class="container" style="width:80%;">
+  <div class="card mb-3">
 
-<h3>Description: </h3>
-  <%= @project.description %>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-8">
+      <h3>Project Title:</h3>
+      <h1><%= @project.title %> </h1>
 
-<h3> Tags: </h3>
-  <ul>
-    <% @project.tags.each do |tag| %>
-      <li><%= link_to tag.name, project_tag_path(@project, tag) %></li>
-    <% end %>
-  </ul>
-  <h4><%= link_to "Create a New Tag", new_project_tag_path(@project) %></h4>
+      <h3>Description: </h3>
+      <%= @project.description %>
+
+      <h3> Tags: </h3>
+      <ul>
+        <% @project.tags.each do |tag| %>
+        <li><%= link_to tag.name, project_tag_path(@project, tag) %></li>
+        <% end %>
+      </ul>
+    <h4><%= link_to "Create a New Tag", new_project_tag_path(@project) %></h4>
+      </div>
+     </div>
+    </div>
+  </div>
+ </div>
 
 <br><br>
-  <h2> Project Messages: </h2>
-  <h4><%= link_to "All Messages", project_messages_path(@project) %></h4>
-    <ul>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-8">
+      <h2> Project Messages: </h2>
+      <h4><%= link_to "All Messages", project_messages_path(@project) %></h4>
+      <ul>
       <% @project.messages.each do |message| %>
         <li><%= link_to message.title, project_message_path(@project, message) %>
           <ol><%= message.content %></ol>
         </li>
         <% end %>
-    </ul>
-  <h3><%= link_to "Add Message", new_project_message_path(@project) %></h3>
+      </ul>
+      <h3><%= link_to "Add Message", new_project_message_path(@project) %></h3>
+      </div>
+    </div>
+  </div>
 
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-8">
 <br><br>
-  <h2> Project Tasks: </h2>
-  <h4> <%= link_to "All Tasks", project_tasks_path(@project) %></h4>
-    <ul>
+     <h2> Project Tasks: </h2>
+    <h4> <%= link_to "All Tasks", project_tasks_path(@project) %></h4>
+     <ul>
       <% @project.tasks.each do |task| %>
         <li><%= link_to task.title, project_task_path(@project, task) %>
             <ol>Description: <%= task.description %></ol>
@@ -35,8 +55,11 @@
             <ol>Status: <%= task.status %> </ol>
           </li>
         <% end %>
-    </ul>
-  <h3><%= link_to "Add Task", new_project_task_path(@project, @task) %></h3>
+     </ul>
+   <h3><%= link_to "Add Task", new_project_task_path(@project, @task) %></h3>
+       </div>
+      </div>
+    </div>
 
 <br><br>
 <%= link_to "Edit this Project", edit_project_path(@project) %>
