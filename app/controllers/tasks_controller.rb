@@ -4,6 +4,10 @@ class TasksController < ApplicationController
 
   def index
     @tasks = @project.tasks
+    respond_to do |format| 
+      format.html {render :index}
+      format.json {render json: @tasks}
+    end
   end
 
   def new
@@ -24,6 +28,10 @@ class TasksController < ApplicationController
 
   def show
     @project = @task.project
+    respond_to do |format|
+      format.html {render :show}
+      format.json {render json: @task}
+    end 
   end
 
   def edit
