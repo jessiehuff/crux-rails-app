@@ -29,6 +29,7 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'dotenv-rails'
+gem 'active_model_serializers'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
