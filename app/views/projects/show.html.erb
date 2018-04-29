@@ -28,7 +28,8 @@
     <div class="row">
       <div class="col-sm-8">
       <h2> Project Messages: </h2>
-      <h4><%= link_to "All Messages", project_messages_path(@project) %></h4>
+      <div class="project-messages">
+      <h4><%= link_to "All Messages", project_messages_path(@project), :class => "load-messages" %></h4>
       <ul>
       <% @project.messages.each do |message| %>
         <li><%= link_to message.title, project_message_path(@project, message) %>
@@ -46,7 +47,8 @@
       <div class="col-sm-8">
 <br><br>
      <h2> Project Tasks: </h2>
-    <h4> <%= link_to "All Tasks", project_tasks_path(@project) %></h4>
+     <div class="project-tasks">
+    <h4> <%= link_to "All Tasks", project_tasks_path(@project), :class => "load-tasks" %></h4>
      <ul>
       <% @project.tasks.each do |task| %>
         <li><%= link_to task.title, project_task_path(@project, task) %>
@@ -57,6 +59,7 @@
         <% end %>
      </ul>
    <h3><%= link_to "Add Task", new_project_task_path(@project, @task) %></h3>
+        </div>
        </div>
       </div>
     </div>
