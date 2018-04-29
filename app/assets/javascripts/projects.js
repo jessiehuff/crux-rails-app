@@ -1,10 +1,17 @@
-$(function(){
-  $(".project").on('click, '.js-more', function(event) {
-    var id = this.dataset.id;
-
-    $.get("/projects/" + id + ".json", function(data) {
-      $("#description-" + id).text(data.description); 
-    })
-    event.preventDefault();
-  })
+$(document).ready(function(){
+  attachProjectListeners(); 
 });
+
+function attachProjectListeners() {
+  $('a.load-messages').on('click', function(e){
+    $(this).hide();
+    e.preventDefault(); 
+    loadMessages(this); 
+  });
+  $('a.load-tasks').on('click', function(e){
+    $(this).hide(); 
+    e.preventDefault();
+    loadTasks(this); 
+  });
+}
+
