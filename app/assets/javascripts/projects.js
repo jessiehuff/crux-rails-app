@@ -48,6 +48,41 @@ function Message(message) {
 
 Message.prototype.formatMessage = function() {
   let messageHtml = `
-  <li><a href='/messages/${this.id}'>${this.name}</a></li>`
+  <li><a href='/messages/${this.id}'>${this.title}</a></li>`
   return messageHtml; 
+}
+
+function loadTasks(element) {
+  $.ajax({
+    method: "GET", 
+    dataType: "json", 
+    url: element.href 
+  })
+  .success(function(data){
+    let tasks = data.tasks 
+    if (tasks.length === 0) {
+      let $header = $("div.project-tasks strong");
+      $header.html("No Task(s)")
+      let $ul = $("div.project-tasks ul")
+      tasks.forEach(task => {
+        let newTask = new Task(task) 
+        let taskHtml = newTask.formatTask() 
+
+        $ul.append(taskHtml)
+      });
+    }
+  });
+}
+
+function Task(task) {
+  this.title = task.title 
+  this.description = task.description
+  this.assigned_to = task.assigned_to
+  this.status = task.status 
+  this.id = task.id 
+}
+
+Task.prototype.formatTask = function() {
+  let taskHtml = `<li><a href='/tasks/${this.id}'>${this.title}</a></li>`
+  return taskHtml;
 }
