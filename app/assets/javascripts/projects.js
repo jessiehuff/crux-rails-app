@@ -13,21 +13,23 @@ function attachProjectListeners() {
     e.preventDefault();
     loadTasks(this); 
   });
-}
+};
 
 function loadMessages(element){
+  console.log(element);
   $.ajax({
     method: "GET", 
     dataType: "json", 
     url: element.href
   })
   .success(function(data){
+    console.log(data);
     let messages = data.messages 
     if (messages.length === 0){
-      let $header = $("div.project-messages strong"); 
+      let $header = $("div.project-messages"); 
       $header.html("No Message(s)")
     } else {
-      let $header = $("div.project-messages strong"); 
+      let $header = $("div.project-messages"); 
       $header.html("Message(s):")
       let $ul = $("div.project-messages ul")
       messages.forEach(message => {
@@ -37,8 +39,12 @@ function loadMessages(element){
         $ul.append(messageHtml)
       });
     }
+  })
+  .error(function(data){
+    console.log(data.messages)
+    console.log('yo we got fucked! :(');
   });
-}
+};
 
 function Message(message) {
   this.title = message.title 
