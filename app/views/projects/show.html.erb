@@ -29,16 +29,13 @@
       <div class="col-sm-8">
       <h2> Project Messages: </h2>
       <div class="project-messages">
-        <h4><%= link_to "All Messages", project_messages_path(@project), :class => "load-messages" %></h4>
-        <ul>
-          <% @project.messages.each do |message| %>
-          <li><%= link_to message.title, project_message_path(@project, message) %>
-          <ol><%= message.content %></ol>
-          </li>
-          <% end %>
-        </ul>
+        <h4><%= link_to "All Messages", project_messages_path(@project), :class => "load-messages", :data => { :id => @project.id } %></h4>
+        
         <h3><%= link_to "Add Message", new_project_message_path(@project) %></h3>
       </div>
+      <ul id="messages">
+          
+        </ul>
     </div>
   </div>
 
@@ -48,7 +45,7 @@
       <br><br>
       <h2> Project Tasks: </h2>
       <div class="project-tasks">
-        <h4> <%= link_to "All Tasks", project_tasks_path(@project), :class => "load-tasks" %></h4>
+        <h4><button><%= link_to "All Tasks", project_tasks_path(@project), :class => "load-tasks" %></button></h4>
         <ul>
           <% @project.tasks.each do |task| %>
           <li><%= link_to task.title, project_task_path(@project, task) %>

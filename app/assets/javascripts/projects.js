@@ -3,10 +3,14 @@ $(document).ready(function(){
 });
 
 function attachProjectListeners() {
+ // console.log('attachProjectListeners is called')
   $('a.load-messages').on('click', function(e){
+    
     $(this).hide();
+    const id = $(this).data('id')
+   
     e.preventDefault(); 
-    loadMessages(this); 
+    loadMessages(this, id); 
   });
   $('a.load-tasks').on('click', function(e){
     $(this).hide(); 
@@ -15,34 +19,31 @@ function attachProjectListeners() {
   });
 };
 
-function loadMessages(element){
-  console.log(element);
+function loadMessages(element, id){
+ // console.log(element);
   $.ajax({
     method: "GET", 
     dataType: "json", 
-    url: element.href
+    url: `/projects/${id}/messages.json`
   })
-  .success(function(data){
-    console.log(data);
-    let messages = data.messages 
+  .success(function(messages){
     if (messages.length === 0){
       let $header = $("div.project-messages"); 
       $header.html("No Message(s)")
     } else {
       let $header = $("div.project-messages"); 
       $header.html("Message(s):")
-      let $ul = $("div.project-messages ul")
+      let $ul = $("#messages")
+      console.log($ul)
       messages.forEach(message => {
         let newMessage = new Message(message)
         let messageHtml = newMessage.formatMessage() 
-
         $ul.append(messageHtml)
       });
     }
   })
   .error(function(data){
     console.log(data.messages)
-    console.log('yo we got fucked! :(');
   });
 };
 
@@ -54,7 +55,7 @@ function Message(message) {
 
 Message.prototype.formatMessage = function() {
   let messageHtml = `
-  <li><a href='/messages/${this.id}'>${this.title}</a></li>`
+  <li><a href='/messages/${this.id}'>${this.title}: ${this.content}</a></li>`
   return messageHtml; 
 }
 
@@ -62,7 +63,7 @@ function loadTasks(element) {
   $.ajax({
     method: "GET", 
     dataType: "json", 
-    url: element.href 
+    url: "/tasks.json" 
   })
   .success(function(data){
     let tasks = data.tasks 

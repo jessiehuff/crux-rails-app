@@ -4,6 +4,10 @@ class MessagesController < ApplicationController
 
   def index
     @messages = @project.messages.reverse
+    respond_to do |format| 
+      format.html {render :index}
+      format.json {render json: @messages}
+    end 
   end
 
   def new
