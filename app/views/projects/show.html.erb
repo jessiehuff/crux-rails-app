@@ -45,18 +45,13 @@
       <br><br>
       <h2> Project Tasks: </h2>
       <div class="project-tasks">
-        <h4><button><%= link_to "All Tasks", project_tasks_path(@project), :class => "load-tasks" %></button></h4>
-        <ul>
-          <% @project.tasks.each do |task| %>
-          <li><%= link_to task.title, project_task_path(@project, task) %>
-            <ol>Description: <%= task.description %></ol>
-            <ol>Assigned to: <%= task.assigned_to %></ol>
-            <ol>Status: <%= task.status %> </ol>
-          </li>
-          <% end %>
-        </ul>
+        <h4><%= link_to "All Tasks", project_tasks_path(@project), :class => "load-tasks", :data => { :id => @project.id} %></h4>
+      
         <h3><%= link_to "Add Task", new_project_task_path(@project, @task) %></h3>
       </div>
+      <ul id="tasks">
+  
+      </ul>
     </div>
   </div>
 </div>

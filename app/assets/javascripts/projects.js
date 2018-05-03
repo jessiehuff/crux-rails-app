@@ -3,24 +3,21 @@ $(document).ready(function(){
 });
 
 function attachProjectListeners() {
- // console.log('attachProjectListeners is called')
   $('a.load-messages').on('click', function(e){
-    
     $(this).hide();
     const id = $(this).data('id')
-   
     e.preventDefault(); 
     loadMessages(this, id); 
   });
   $('a.load-tasks').on('click', function(e){
     $(this).hide(); 
+    const id = $(this).data('id')
     e.preventDefault();
-    loadTasks(this); 
+    loadTasks(this, id); 
   });
 };
 
 function loadMessages(element, id){
- // console.log(element);
   $.ajax({
     method: "GET", 
     dataType: "json", 
@@ -34,7 +31,6 @@ function loadMessages(element, id){
       let $header = $("div.project-messages"); 
       $header.html("Message(s):")
       let $ul = $("#messages")
-      console.log($ul)
       messages.forEach(message => {
         let newMessage = new Message(message)
         let messageHtml = newMessage.formatMessage() 
@@ -43,7 +39,7 @@ function loadMessages(element, id){
     }
   })
   .error(function(data){
-    console.log(data.messages)
+    console.log(data)
   });
 };
 
@@ -55,22 +51,24 @@ function Message(message) {
 
 Message.prototype.formatMessage = function() {
   let messageHtml = `
-  <li><a href='/messages/${this.id}'>${this.title}: ${this.content}</a></li>`
+  <li><a href='/messages/${this.id}'><strong><u>${this.title}:</strong></u> ${this.content}</a></li>`
   return messageHtml; 
 }
 
-function loadTasks(element) {
+function loadTasks(element, id) {
   $.ajax({
     method: "GET", 
     dataType: "json", 
-    url: "/tasks.json" 
+    url: `/projects/${id}/tasks.json`
   })
-  .success(function(data){
-    let tasks = data.tasks 
+  .success(function(tasks){ 
     if (tasks.length === 0) {
-      let $header = $("div.project-tasks strong");
+      let $header = $("div.project-tasks");
       $header.html("No Task(s)")
-      let $ul = $("div.project-tasks ul")
+    } else {
+      let $header = $("div.project-tasks");
+      $header.html("Task(s):")
+      let $ul = $("#tasks")
       tasks.forEach(task => {
         let newTask = new Task(task) 
         let taskHtml = newTask.formatTask() 
@@ -90,6 +88,9 @@ function Task(task) {
 }
 
 Task.prototype.formatTask = function() {
-  let taskHtml = `<li><a href='/tasks/${this.id}'>${this.title}</a></li>`
+  let taskHtml = `<li><a href='/tasks/${this.id}'><strong><u>${this.title}:</strong></u> <br>
+  ${this.description}<br><strong>
+  Assigned to: </strong>${this.assigned_to}<br><strong>
+  Status: </strong>${this.status}</a></li>`
   return taskHtml;
 }
