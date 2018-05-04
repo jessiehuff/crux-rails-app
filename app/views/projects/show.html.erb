@@ -20,9 +20,9 @@
      
      
       <h3> Tags: </h3>
-      <ul>
+      <ul class="project-tags">
         <% @project.tags.each do |tag| %>
-        <li><%= link_to tag.name, project_tag_path(@project, tag) %></li>
+        <li><%= link_to tag.name, project_tag_path(@project, tag), :data => {:id => @project.id} %></li>
         <% end %>
       </ul>
     <h4><%= link_to "Create a New Tag", new_project_tag_path(@project) %></h4>
@@ -39,17 +39,19 @@
       <h2> Project Messages: </h2>
       <div class="project-messages">
         <h4><%= link_to "All Messages", project_messages_path(@project), :class => "load-messages", :data => { :id => @project.id } %></h4>
-        <div class="messageResult">
-  
-        </div>
-        
-        <div class='new_message'>
-          <h3><%= link_to "Add Message", new_project_message_path(@project) %></h3>
-        </div>
       </div>
       <ul id="messages">
           
-        </ul>
+      </ul>
+        <div class="messageResult">
+  
+        </div>
+      <div class="new-message">
+          <h3><%= link_to "Add Message", new_project_message_path(@project), :class => "new_message", :data => {:id => @project.id} %></h3>
+      </div>
+  
+      
+      
     </div>
   </div>
 

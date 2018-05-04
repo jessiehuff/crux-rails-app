@@ -12,6 +12,7 @@ class MessagesController < ApplicationController
 
   def new
     @message = Message.new
+    render layout: false
   end
 
   def create

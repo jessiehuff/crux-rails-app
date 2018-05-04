@@ -9,6 +9,16 @@ function attachProjectListeners() {
     e.preventDefault(); 
     loadMessages(this, id); 
   });
+  $('a.new_message').on('click', function(e){
+    const id = $(this).data('id')
+    e.preventDefault();
+    getMessageForm(this, id);
+  })
+  $(document).on('submit', '#new_message', function(e){
+    const id = $(this).data('id')
+    e.preventDefault();
+    postMessages(this,id);
+  })
   $('a.load-tasks').on('click', function(e){
     $(this).hide(); 
     const id = $(this).data('id')
@@ -110,23 +120,61 @@ function nextProject(element, id){
   .success(function(response){
     const newProject = new Project(response)
     $('.title').html(newProject.title)
-    $('.description').html(newProject.description) 
-    $('.project-messages').html(newProject.messages)
+    $('.description').html(newProject.description)
+    $('.project-tags').html(newProject.formatTags()) 
+    $('.project-messages').html(newProject.formatMessages())
     $('.project-tasks').html(newProject.tasks)
+    console.log(newProject) 
   });
 }
 
 function Project(project){
+  this.id = project.id
   this.title = project.title 
   this.description = project.description
-  this.id = project.id
+  this.tags = project.tags
+  this.messages = project.messages 
+  this.tasks = project.tasks
 }
 
 Project.prototype.formatProject = function() {
   let projectHtml = `<li><a href='/projects/${this.id}>${this.title} <br>
   ${this.description}
+  ${this.tags}
+  ${this.messages}
+  ${this.tasks}
   </li>` 
-  return projectHtml;
+  return projectHtml
+}
+Project.prototype.formatTags = function() {
+  let tagsArray = []
+  let tagHtml = this.tags.forEach(function(tag){
+    tagsArray.push(`<li>${tag.name}</li>`)
+  })
+
+  return tagsArray.join('')
 }
 //create new Project prototype, add all the attributes, and then render the new attribute for each new project
 
+
+// Submit New Message via AJAX 
+function getMessageForm(element, id){
+    $.ajax({
+      url: element.getAttribute('href'), 
+      type: "GET", 
+    })
+    .success(function(response) {
+      $(".messageResult").html(response)
+      });
+    }
+function postMessages(element, id){
+  $.ajax({
+    url: `projects/${id}/messages`,
+    type: "POST",
+    dataType: "json"
+  })
+  .success(function(response){
+    const newMessage = new Message(response)
+    $(".messages").append(newMessage.formatMessage())
+  })
+}
