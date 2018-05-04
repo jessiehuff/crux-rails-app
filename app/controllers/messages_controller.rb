@@ -29,6 +29,10 @@ class MessagesController < ApplicationController
 
   def show
     @project = @message.project
+    respond_to do |format| 
+      format.html {render :show}
+      format.json {render json: @message}
+    end 
   end
 
   def edit

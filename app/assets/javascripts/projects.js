@@ -15,6 +15,11 @@ function attachProjectListeners() {
     e.preventDefault();
     loadTasks(this, id); 
   });
+  $('a.next-project').on('click', function(e){
+    const id = $(this).data('id')
+    e.preventDefault(); 
+    nextProject(this, id);
+  })
 };
 
 function loadMessages(element, id){
@@ -94,3 +99,34 @@ Task.prototype.formatTask = function() {
   Status: </strong>${this.status}</a></li>`
   return taskHtml;
 }
+
+// Rendering next show page of each project
+function nextProject(element, id){
+  $.ajax({
+    method: "GET", 
+    dataType: "json", 
+    url: `/projects/${id +1}.json`
+  })
+  .success(function(response){
+    const newProject = new Project(response)
+    $('.title').html(newProject.title)
+    $('.description').html(newProject.description) 
+    $('.project-messages').html(newProject.messages)
+    $('.project-tasks').html(newProject.tasks)
+  });
+}
+
+function Project(project){
+  this.title = project.title 
+  this.description = project.description
+  this.id = project.id
+}
+
+Project.prototype.formatProject = function() {
+  let projectHtml = `<li><a href='/projects/${this.id}>${this.title} <br>
+  ${this.description}
+  </li>` 
+  return projectHtml;
+}
+//create new Project prototype, add all the attributes, and then render the new attribute for each new project
+
