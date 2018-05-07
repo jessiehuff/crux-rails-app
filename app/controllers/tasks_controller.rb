@@ -20,9 +20,10 @@ class TasksController < ApplicationController
     @task.project_id = project_id
     if @task.save
       @project = @task.project
-      redirect_to project_tasks_path(@project)
+      render json: @task, status: 201
     else
-      render :new
+      flash[:message] = @task.errors.full_messages
+      render json: {errors: @task.errors.full_messages}, status: 400
     end
   end
 

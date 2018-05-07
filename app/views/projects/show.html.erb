@@ -62,12 +62,16 @@
       <h2> Project Tasks: </h2>
       <div class="project-tasks">
         <h4><%= link_to "All Tasks", project_tasks_path(@project), :class => "load-tasks", :data => { :id => @project.id} %></h4>
-      
-        <h3><%= link_to "Add Task", new_project_task_path(@project, @task) %></h3>
       </div>
-      <ul id="tasks">
-  
-      </ul>
+        <ul id="tasks">
+
+        </ul>
+      <div class="taskResult">
+
+      </div>
+      <div class="new-task">
+      <h3><%= link_to "Add Task", new_project_task_path(@project), :class => "new-task", :data => {:id => @project.id} %></h3>
+      </div>
     </div>
   </div>
 </div>

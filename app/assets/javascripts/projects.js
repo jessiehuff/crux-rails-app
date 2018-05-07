@@ -25,6 +25,16 @@ function attachProjectListeners() {
     e.preventDefault();
     loadTasks(this, id); 
   });
+  $('a.new-task').on('click', function(e){
+    const id = $(this).data('id')
+    e.preventDefault();
+    getTaskForm(this, id);
+  });
+  $('.new-task').submit(function(e){
+    const id = $(this).data('id')
+    e.preventDefault(); 
+    postTasks(this, id);
+  });
   $('a.next-project').on('click', function(e){
     const id = $(this).data('id')
     e.preventDefault(); 
@@ -80,16 +90,16 @@ function loadTasks(element, id) {
   })
   .success(function(tasks){ 
     if (tasks.length === 0) {
-      let $header = $("div.project-tasks");
+      let $header = $(".project-tasks");
       $header.html("No Task(s)")
     } else {
-      let $header = $("div.project-tasks");
+      let $header = $(".project-tasks");
       $header.html("Task(s):")
       let $ul = $("#tasks")
       tasks.forEach(task => {
         let newTask = new Task(task) 
         let taskHtml = newTask.formatTask() 
-
+        console.log(newTask)
         $ul.append(taskHtml)
       });
     }
@@ -193,5 +203,31 @@ function postMessages(element, id){
     let messageHtml = newMessage.formatMessages(); 
 
     $(".messages").append(messageHtml)
+  })
+}
+
+// Submit New Task via AJAX
+function getTaskForm(element, id){
+  $.ajax({
+    url: element.getAttribute('href'),
+    type: "GET", 
+  })
+  .success(function(response){
+    $(".taskResult").html(response)
+  });
+}
+function postTasks(element, id){
+  $.ajax({
+    url: `/projects/${id}/tasks.json`,
+    type: "POST", 
+    contentType: 'application/json; charset=utf-8',
+    dataType: "json", 
+    async: false
+  })
+  .success(function(response){
+    const newTask = new Task(response)
+    let taskHtml = newTask.formatTask(); 
+
+    $(".tasks").append(taskHtml)
   })
 }

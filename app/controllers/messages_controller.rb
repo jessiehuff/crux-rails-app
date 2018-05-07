@@ -24,7 +24,7 @@ class MessagesController < ApplicationController
       render json: @message, status: 201
     else
       flash[:message] = @message.errors.full_messages
-      render json: {errors: @comment.errors.full_messages}, status: 400
+      render json: {errors: @message.errors.full_messages}, status: 400
     end
   end
 
