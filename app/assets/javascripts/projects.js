@@ -10,6 +10,7 @@ function attachProjectListeners() {
     loadMessages(this, id); 
   });
   $('a.new_message').on('click', function(e){
+    $(this).hide();
     const id = $(this).data('id')
     e.preventDefault();
     getMessageForm(this, id);
@@ -26,6 +27,7 @@ function attachProjectListeners() {
     loadTasks(this, id); 
   });
   $('a.new-task').on('click', function(e){
+    $(this).hide();
     const id = $(this).data('id')
     e.preventDefault();
     getTaskForm(this, id);
@@ -51,10 +53,10 @@ function loadMessages(element, id){
   })
   .success(function(messages){
     if (messages.length === 0){
-      let $header = $("div.project-messages"); 
+      let $header = $(".project-messages"); 
       $header.html("No Message(s)")
     } else {
-      let $header = $("div.project-messages"); 
+      let $header = $(".project-messages"); 
       $header.html("Message(s):")
       let $ul = $("#messages")
       messages.forEach(message => {
@@ -125,7 +127,6 @@ function loadTasks(element, id) {
       tasks.forEach(task => {
         let newTask = new Task(task) 
         let taskHtml = newTask.formatTask() 
-        console.log(newTask)
         $ul.append(taskHtml)
       });
     }
@@ -144,7 +145,7 @@ Task.prototype.formatTask = function() {
   let taskHtml = `<li><a href='/tasks/${this.id}'><strong><u>${this.title}:</strong></u> <br>
   ${this.description}<br><strong>
   Assigned to: </strong>${this.assigned_to}<br><strong>
-  Status: </strong>${this.status}</a></li>`
+  Status: </strong>${this.status}</a></li><br>`
   return taskHtml;
 }
 
