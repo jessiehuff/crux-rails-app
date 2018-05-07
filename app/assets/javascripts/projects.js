@@ -81,6 +81,32 @@ Message.prototype.formatMessages = function() {
   return messageHtml;
 }
 
+// Submit New Message via AJAX 
+function getMessageForm(element, id){
+  $.ajax({
+    url: element.getAttribute('href'), 
+    type: "GET", 
+  })
+  .success(function(response) {
+    $(".messageResult").html(response)
+    });
+  }
+function postMessages(element, id){
+$.ajax({
+  url: `/projects/${id}/messages.json`,
+  type: "POST",
+  contentType: 'application/json; charset=utf-8',
+  dataType: "json",
+  async: false
+})
+.success(function(response){
+  const newMessage = new Message(response)
+  let messageHtml = newMessage.formatMessages(); 
+
+  $(".messages").append(messageHtml)
+})
+}
+
 //Loading Tasks 
 function loadTasks(element, id) {
   $.ajax({
@@ -120,6 +146,32 @@ Task.prototype.formatTask = function() {
   Assigned to: </strong>${this.assigned_to}<br><strong>
   Status: </strong>${this.status}</a></li>`
   return taskHtml;
+}
+
+// Submit New Task via AJAX
+function getTaskForm(element, id){
+  $.ajax({
+    url: element.getAttribute('href'),
+    type: "GET", 
+  })
+  .success(function(response){
+    $(".taskResult").html(response)
+  });
+}
+function postTasks(element, id){
+  $.ajax({
+    url: `/projects/${id}/tasks.json`,
+    type: "POST", 
+    contentType: 'application/json; charset=utf-8',
+    dataType: "json", 
+    async: false
+  })
+  .success(function(response){
+    const newTask = new Task(response)
+    let taskHtml = newTask.formatTask(); 
+
+    $(".tasks").append(taskHtml)
+  })
 }
 
 // Rendering next show page of each project
@@ -178,56 +230,3 @@ Project.prototype.formatNestedMessages = function() {
 }
 
 //create new Project prototype, add all the attributes, and then render the new attribute for each new project
-
-
-// Submit New Message via AJAX 
-function getMessageForm(element, id){
-    $.ajax({
-      url: element.getAttribute('href'), 
-      type: "GET", 
-    })
-    .success(function(response) {
-      $(".messageResult").html(response)
-      });
-    }
-function postMessages(element, id){
-  $.ajax({
-    url: `/projects/${id}/messages.json`,
-    type: "POST",
-    contentType: 'application/json; charset=utf-8',
-    dataType: "json",
-    async: false
-  })
-  .success(function(response){
-    const newMessage = new Message(response)
-    let messageHtml = newMessage.formatMessages(); 
-
-    $(".messages").append(messageHtml)
-  })
-}
-
-// Submit New Task via AJAX
-function getTaskForm(element, id){
-  $.ajax({
-    url: element.getAttribute('href'),
-    type: "GET", 
-  })
-  .success(function(response){
-    $(".taskResult").html(response)
-  });
-}
-function postTasks(element, id){
-  $.ajax({
-    url: `/projects/${id}/tasks.json`,
-    type: "POST", 
-    contentType: 'application/json; charset=utf-8',
-    dataType: "json", 
-    async: false
-  })
-  .success(function(response){
-    const newTask = new Task(response)
-    let taskHtml = newTask.formatTask(); 
-
-    $(".tasks").append(taskHtml)
-  })
-}
