@@ -13,12 +13,12 @@ function attachProjectListeners() {
     const id = $(this).data('id')
     e.preventDefault();
     getMessageForm(this, id);
-  })
-  $(document).on('submit', '#new_message', function(e){
+  });
+  $(".new_message").submit(function(e){
     const id = $(this).data('id')
     e.preventDefault();
-    postMessages(this,id);
-  })
+    postMessages(this, id);
+  });
   $('a.load-tasks').on('click', function(e){
     $(this).hide(); 
     const id = $(this).data('id')
@@ -32,6 +32,7 @@ function attachProjectListeners() {
   })
 };
 
+// Loading Messages
 function loadMessages(element, id){
   $.ajax({
     method: "GET", 
@@ -48,7 +49,7 @@ function loadMessages(element, id){
       let $ul = $("#messages")
       messages.forEach(message => {
         let newMessage = new Message(message)
-        let messageHtml = newMessage.formatMessage() 
+        let messageHtml = newMessage.formatMessages() 
         $ul.append(messageHtml)
       });
     }
@@ -64,12 +65,13 @@ function Message(message) {
   this.id = message.id
 }
 
-Message.prototype.formatMessage = function() {
+Message.prototype.formatMessages = function() {
   let messageHtml = `
   <li><a href='/messages/${this.id}'><strong><u>${this.title}:</strong></u> ${this.content}</a></li>`
-  return messageHtml; 
+  return messageHtml;
 }
 
+//Loading Tasks 
 function loadTasks(element, id) {
   $.ajax({
     method: "GET", 
@@ -121,10 +123,10 @@ function nextProject(element, id){
     const newProject = new Project(response)
     $('.title').html(newProject.title)
     $('.description').html(newProject.description)
-    $('.project-tags').html(newProject.formatTags()) 
-    $('.project-messages').html(newProject.formatMessages())
-    $('.project-tasks').html(newProject.tasks)
+    $('.project-tags').html(newProject.formatTags())
     console.log(newProject) 
+    $('.project-messages').html(newProject.formatNestedMessages())
+    $('.project-tasks').html(newProject.tasks)
   });
 }
 
@@ -154,6 +156,17 @@ Project.prototype.formatTags = function() {
 
   return tagsArray.join('')
 }
+
+Project.prototype.formatNestedMessages = function() {
+  let messagesArray = []
+  let messageHtml = this.messages.forEach(function(message){
+    messagesArray.push(`
+    <li><a href='/messages/${this.id}'><strong><u>${this.title}:</strong></u> ${this.content}</a></li>`)
+  })
+  return messagesArray.join('')
+  console.log(messagesArray)
+}
+
 //create new Project prototype, add all the attributes, and then render the new attribute for each new project
 
 
@@ -169,12 +182,16 @@ function getMessageForm(element, id){
     }
 function postMessages(element, id){
   $.ajax({
-    url: `projects/${id}/messages`,
+    url: `/projects/${id}/messages.json`,
     type: "POST",
-    dataType: "json"
+    contentType: 'application/json; charset=utf-8',
+    dataType: "json",
+    async: false
   })
   .success(function(response){
     const newMessage = new Message(response)
-    $(".messages").append(newMessage.formatMessage())
+    let messageHtml = newMessage.formatMessages(); 
+
+    $(".messages").append(messageHtml)
   })
 }
