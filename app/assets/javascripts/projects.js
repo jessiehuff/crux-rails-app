@@ -72,7 +72,7 @@ function Message(message) {
   this.title = message.title 
   this.content = message.content 
   this.id = message.id
-  this.project_id = message.project.id
+//this.project_id = message.project.id
 }
 
 Message.prototype.formatMessages = function() {
@@ -138,10 +138,11 @@ function Task(task) {
   this.assigned_to = task.assigned_to
   this.status = task.status 
   this.id = task.id 
+ // this.project_id = task.project.id
 }
 
 Task.prototype.formatTask = function() {
-  let taskHtml = `<li><a href='/tasks/${this.id}'><strong><u>${this.title}:</strong></u> <br>
+  let taskHtml = `<li><a href='/projects/${this.project_id}/tasks/${this.id}'><strong><u>${this.title}:</strong></u> <br>
   ${this.description}<br><strong>
   Assigned to: </strong>${this.assigned_to}<br><strong>
   Status: </strong>${this.status}</a></li><br>`
@@ -153,7 +154,7 @@ function getTaskForm(element, id){
   $.ajax({
     url: element.getAttribute('href'),
     type: "GET", 
-  })
+  })  
   .success(function(response){
     $(".taskResult").html(response)
   });
@@ -188,7 +189,7 @@ function nextProject(element, id){
     $('.description').html(newProject.description)
     $('.project-tags').html(newProject.formatTags())
     $('#messages').html(newProject.formatNestedMessages())
-    $('.project-tasks').html(newProject.formatTask)
+    $('#tasks').html(newProject.formatNestedTasks())
   });
 }
 
@@ -198,7 +199,7 @@ function Project(project){
   this.description = project.description
   this.tags = project.tags
   this.messages = project.messages.map(message => new Message(message)) 
-  this.tasks = project.tasks
+  this.tasks = project.tasks.map(task => new Task (task))
 }
 
 Project.prototype.formatProject = function() {
@@ -221,12 +222,18 @@ Project.prototype.formatTags = function() {
 
 Project.prototype.formatNestedMessages = function() {
   let messagesArray = []
-  console.log(this)
   let messageHtml = this.messages.forEach(function(message){
     messagesArray.push(message.formatMessages())
   })
-  console.log(messagesArray)
   return messagesArray.join('')
+}
+
+Project.prototype.formatNestedTasks = function() {
+  let tasksArray = []
+  let taskHtml = this.tasks.forEach(function(task){
+    tasksArray.push(task.formatTask())
+  })
+  return tasksArray.join('')
 }
 
 //create new Project prototype, add all the attributes, and then render the new attribute for each new project
