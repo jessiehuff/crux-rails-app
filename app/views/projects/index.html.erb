@@ -15,9 +15,7 @@
     <div class="card border-light" style="max-width: 15rem; min-width: 15rem;">
       <div class="project card-body">
     <h2 class="projectTitle"><%= link_to project.title, project_path(project) %> </h2>
-    <div id="description-<%= project.id%>" class="text-muted"><%= project.description.truncate(23)%>
-      <a href='#' data-id="<%=project.id %>" class='js-more'>See Description</a>
-    </div>
+    <%= project.description%>
    </div><br>
   </div>
   <% end %>
