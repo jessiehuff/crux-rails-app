@@ -15,7 +15,7 @@ function attachProjectListeners() {
     e.preventDefault();
     getMessageForm(this, id);
   });
-  $(".new_message").submit(function(e){
+  $(document).on('submit', "#new_message", function(e){
     const id = $(this).data('id')
     e.preventDefault();
     postMessages(this, id);
@@ -66,20 +66,18 @@ function loadMessages(element, id){
       });
     }
   })
-  .error(function(data){
-    console.log(data)
-  });
 };
 
 function Message(message) {
   this.title = message.title 
   this.content = message.content 
   this.id = message.id
+  this.project_id = message.project.id
 }
 
 Message.prototype.formatMessages = function() {
   let messageHtml = `
-  <li><a href='/messages/${this.id}'><strong><u>${this.title}:</strong></u> ${this.content}</a></li>`
+  <li><a href='/projects/${this.project_id}/messages/${this.id}'><strong><u>${this.title}:</strong></u> ${this.content}</a></li>`
   return messageHtml;
 }
 
@@ -93,13 +91,14 @@ function getMessageForm(element, id){
     $(".messageResult").html(response)
     });
   }
+
 function postMessages(element, id){
 $.ajax({
   url: `/projects/${id}/messages.json`,
   type: "POST",
   contentType: 'application/json; charset=utf-8',
   dataType: "json",
-  async: false
+   
 })
 .success(function(response){
   const newMessage = new Message(response)
@@ -184,12 +183,12 @@ function nextProject(element, id){
   })
   .success(function(response){
     const newProject = new Project(response)
+    
     $('.title').html(newProject.title)
     $('.description').html(newProject.description)
     $('.project-tags').html(newProject.formatTags())
-    console.log(newProject) 
-    $('.project-messages').html(newProject.formatNestedMessages())
-    $('.project-tasks').html(newProject.tasks)
+    $('#messages').html(newProject.formatNestedMessages())
+    $('.project-tasks').html(newProject.formatTask)
   });
 }
 
@@ -198,7 +197,7 @@ function Project(project){
   this.title = project.title 
   this.description = project.description
   this.tags = project.tags
-  this.messages = project.messages 
+  this.messages = project.messages.map(message => new Message(message)) 
   this.tasks = project.tasks
 }
 
@@ -222,12 +221,12 @@ Project.prototype.formatTags = function() {
 
 Project.prototype.formatNestedMessages = function() {
   let messagesArray = []
+  console.log(this)
   let messageHtml = this.messages.forEach(function(message){
-    messagesArray.push(`
-    <li><a href='/messages/${this.id}'><strong><u>${this.title}:</strong></u> ${this.content}</a></li>`)
+    messagesArray.push(message.formatMessages())
   })
-  return messagesArray.join('')
   console.log(messagesArray)
+  return messagesArray.join('')
 }
 
 //create new Project prototype, add all the attributes, and then render the new attribute for each new project

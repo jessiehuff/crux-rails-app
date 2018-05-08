@@ -12,6 +12,7 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    render layout: false
   end
 
   def create
