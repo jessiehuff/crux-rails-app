@@ -72,6 +72,7 @@ function Message(message) {
   this.title = message.title 
   this.content = message.content 
   this.id = message.id
+  console.log(this)
 //this.project_id = message.project.id
 }
 
@@ -98,7 +99,7 @@ $.ajax({
   type: "POST",
   contentType: 'application/json; charset=utf-8',
   dataType: "json",
-   
+  data: $(this).serialize() 
 })
 .success(function(response){
   const newMessage = new Message(response)
