@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready('turbolinks:load', function(){
   attachProjectListeners(); 
 });
 
@@ -17,6 +17,7 @@ function attachProjectListeners() {
   });
   $(document).on('submit', "#new_message", function(e){
     const id = $(this).data('id')
+    console.log(id)
     e.preventDefault();
     postMessages(this, id);
   });
@@ -72,7 +73,6 @@ function Message(message) {
   this.title = message.title 
   this.content = message.content 
   this.id = message.id
-  console.log(this)
 //this.project_id = message.project.id
 }
 
@@ -94,20 +94,15 @@ function getMessageForm(element, id){
   }
 
 function postMessages(element, id){
-$.ajax({
-  url: `/projects/${id}/messages.json`,
-  type: "POST",
-  contentType: 'application/json; charset=utf-8',
-  dataType: "json",
-  data: $(this).serialize() 
-})
-.success(function(response){
-  const newMessage = new Message(response)
-  let messageHtml = newMessage.formatMessages(); 
+  const data = $(element).serialize()
+  $.post(`/projects/${id}/messages.json`, data).success(function(response) {          
+    const newMessage = new Message(response)
+    let messageHtml = newMessage.formatMessages()
+  
+    $('.messages').append(messageHtml)
+    })
+  }
 
-  $(".messages").append(messageHtml)
-})
-}
 
 //Loading Tasks 
 function loadTasks(element, id) {
