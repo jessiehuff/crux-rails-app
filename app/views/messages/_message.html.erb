@@ -1,6 +1,6 @@
 <%= render partial: 'layouts/errors', locals: {object: @message} %>
 
-<%= form_for([project, message]) do |f| %>
+<%= form_for([project, message], :data => {:id => @project.id}) do |f| %>
   <div class="field">
     <%= f.label :title %>
     <%= f.text_field :title %>

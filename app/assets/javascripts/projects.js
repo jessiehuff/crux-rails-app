@@ -1,4 +1,4 @@
-$(document).ready('turbolinks:load', function(){
+$(document).on('turbolinks:load', function(){
   attachProjectListeners(); 
 });
 
@@ -73,7 +73,7 @@ function Message(message) {
   this.title = message.title 
   this.content = message.content 
   this.id = message.id
-//this.project_id = message.project.id
+  this.project_id = message.project.id
 }
 
 Message.prototype.formatMessages = function() {
@@ -98,8 +98,8 @@ function postMessages(element, id){
   $.post(`/projects/${id}/messages.json`, data).success(function(response) {          
     const newMessage = new Message(response)
     let messageHtml = newMessage.formatMessages()
-  
-    $('.messages').append(messageHtml)
+    console.log(messageHtml)
+    $('#messages').prepend(messageHtml)
     })
   }
 
