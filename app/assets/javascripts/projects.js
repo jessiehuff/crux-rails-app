@@ -17,7 +17,6 @@ function attachProjectListeners() {
   });
   $(document).on('submit', "#new_message", function(e){
     const id = $(this).data('id')
-    console.log(id)
     e.preventDefault();
     postMessages(this, id);
   });
@@ -33,9 +32,9 @@ function attachProjectListeners() {
     e.preventDefault();
     getTaskForm(this, id);
   });
-  $('.new-task').submit(function(e){
-    const id = $(this).data('id')
+  $(document).on('submit', "#new_task", function(e){
     e.preventDefault(); 
+    const id = $(this).data('id')
     postTasks(this, id);
   });
   $('a.next-project').on('click', function(e){
@@ -73,7 +72,7 @@ function Message(message) {
   this.title = message.title 
   this.content = message.content 
   this.id = message.id
-  this.project_id = message.project.id
+  //this.project_id = message.project.id
 }
 
 Message.prototype.formatMessages = function() {
@@ -98,7 +97,6 @@ function postMessages(element, id){
   $.post(`/projects/${id}/messages.json`, data).success(function(response) {          
     const newMessage = new Message(response)
     let messageHtml = newMessage.formatMessages()
-    console.log(messageHtml)
     $('#messages').prepend(messageHtml)
     })
   }
@@ -134,7 +132,7 @@ function Task(task) {
   this.assigned_to = task.assigned_to
   this.status = task.status 
   this.id = task.id 
- // this.project_id = task.project.id
+  //this.project_id = task.project.id
 }
 
 Task.prototype.formatTask = function() {
@@ -156,18 +154,11 @@ function getTaskForm(element, id){
   });
 }
 function postTasks(element, id){
-  $.ajax({
-    url: `/projects/${id}/tasks.json`,
-    type: "POST", 
-    contentType: 'application/json; charset=utf-8',
-    dataType: "json", 
-    async: false
-  })
-  .success(function(response){
+  const data = $(element).serialize()
+  $.post(`/projects/${id}/tasks.json`, data).success(function(response){
     const newTask = new Task(response)
-    let taskHtml = newTask.formatTask(); 
-
-    $(".tasks").append(taskHtml)
+    let taskHtml = newTask.formatTask() 
+    $('#tasks').prepend(taskHtml)
   })
 }
 
