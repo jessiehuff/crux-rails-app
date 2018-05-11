@@ -38,6 +38,7 @@ function attachProjectListeners() {
     postTasks(this, id);
   });
   $('a.next-project').on('click', function(e){
+    debugger
     const id = $(this).data('id')
     e.preventDefault(); 
     nextProject(this, id);
@@ -68,11 +69,12 @@ function loadMessages(element, id){
   })
 };
 
-function Message(message) {
+function Message(message, project_id) {
+  
   this.title = message.title 
   this.content = message.content 
   this.id = message.id
-  //this.project_id = message.project.id
+  this.project_id = project_id
 }
 
 Message.prototype.formatMessages = function() {
@@ -126,13 +128,13 @@ function loadTasks(element, id) {
   });
 }
 
-function Task(task) {
+function Task(task, project_id) {
   this.title = task.title 
   this.description = task.description
   this.assigned_to = task.assigned_to
   this.status = task.status 
   this.id = task.id 
-  //this.project_id = task.project.id
+  this.project_id = project_id
 }
 
 Task.prototype.formatTask = function() {
@@ -156,7 +158,7 @@ function getTaskForm(element, id){
 function postTasks(element, id){
   const data = $(element).serialize()
   $.post(`/projects/${id}/tasks.json`, data).success(function(response){
-    const newTask = new Task(response)
+    const newTask = new Task(response, id)
     let taskHtml = newTask.formatTask() 
     $('#tasks').prepend(taskHtml)
   })
@@ -164,14 +166,17 @@ function postTasks(element, id){
 
 // Rendering next show page of each project
 function nextProject(element, id){
+  const nextId = id + 1
   $.ajax({
     method: "GET", 
     dataType: "json", 
-    url: `/projects/${id +1}.json`
+    url: `/projects/${nextId}.json`
   })
   .success(function(response){
+    console.log(response)
     const newProject = new Project(response)
-    
+    $('.next-project').attr('data-id', nextId)
+    $('.next-project').attr('href', `/projects/${nextId}`)
     $('.title').html(newProject.title)
     $('.description').html(newProject.description)
     $('.project-tags').html(newProject.formatTags())
@@ -185,7 +190,7 @@ function Project(project){
   this.title = project.title 
   this.description = project.description
   this.tags = project.tags
-  this.messages = project.messages.map(message => new Message(message)) 
+  this.messages = project.messages.map(message => new Message(message, project.id)) 
   this.tasks = project.tasks.map(task => new Task (task))
 }
 
