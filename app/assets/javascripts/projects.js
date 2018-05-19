@@ -175,7 +175,7 @@ function nextProject(element, id){
   .success(function(response){
     console.log(response)
     const newProject = new Project(response)
-    $('.next-project').attr('data-id', nextId)
+    $('.next-project').data('id', nextId)
     $('.next-project').attr('href', `/projects/${nextId}`)
     $('.title').html(newProject.title)
     $('.description').html(newProject.description)
@@ -227,5 +227,3 @@ Project.prototype.formatNestedTasks = function() {
   })
   return tasksArray.join('')
 }
-
-//create new Project prototype, add all the attributes, and then render the new attribute for each new project
