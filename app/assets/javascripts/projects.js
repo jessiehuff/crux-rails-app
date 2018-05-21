@@ -1,197 +1,198 @@
-$(document).ready(function(){
-  attachProjectListeners(); 
-});
+$(document).ready(function() {
+  attachProjectListeners()
+})
 
 function attachProjectListeners() {
-  $('a.load-messages').on('click', function(e){
-    $(this).hide();
+  $('a.load-messages').on('click', function(e) {
+    $(this).hide()
     const id = $(this).data('id')
-    e.preventDefault(); 
-    loadMessages(this, id); 
-  });
-  $('a.new_message').on('click', function(e){
-    $(this).hide();
-    const id = $(this).data('id')
-    e.preventDefault();
-    getMessageForm(this, id);
-  });
-  $(document).on('submit', "#new_message", function(e){
-    const id = $(this).data('id')
-    e.preventDefault();
-    postMessages(this, id);
-  });
-  $('a.load-tasks').on('click', function(e){
-    $(this).hide(); 
-    const id = $(this).data('id')
-    e.preventDefault();
-    loadTasks(this, id); 
-  });
-  $('a.new-task').on('click', function(e){
-    $(this).hide();
-    const id = $(this).data('id')
-    e.preventDefault();
-    getTaskForm(this, id);
-  });
-  $(document).on('submit', "#new_task", function(e){
-    e.preventDefault(); 
-    const id = $(this).data('id')
-    postTasks(this, id);
-  });
-  $('a.next-project').on('click', function(e){
-    const id = $(this).data('id')
-    e.preventDefault(); 
-    nextProject(this, id);
+    e.preventDefault()
+    loadMessages(this, id)
   })
-};
+  $('a.new_message').on('click', function(e) {
+    $(this).hide()
+
+    const id = $(this).data('id')
+    e.preventDefault()
+    getMessageForm(this, id)
+  })
+  $(document).on('submit', '#new_message', function(e) {
+    const id = $(this).data('id')
+    e.preventDefault()
+    postMessages(this, id)
+  })
+  $('a.load-tasks').on('click', function(e) {
+    $(this).hide()
+    const id = $(this).data('id')
+    e.preventDefault()
+    loadTasks(this, id)
+  })
+  $('a.new-task').on('click', function(e) {
+    $(this).hide()
+    const id = $(this).data('id')
+    e.preventDefault()
+    getTaskForm(this, id)
+  })
+  $(document).on('submit', '#new_task', function(e) {
+    e.preventDefault()
+    const id = $(this).data('id')
+    postTasks(this, id)
+  })
+  $('a.next-project').on('click', function(e) {
+    const id = $(this).data('id')
+    e.preventDefault()
+    nextProject(this, id)
+  })
+}
 
 // Loading Messages
-function loadMessages(element, id){
+function loadMessages(element, id) {
   $.ajax({
-    method: "GET", 
-    dataType: "json", 
-    url: `/projects/${id}/messages.json`
-  })
-  .success(function(messages){
-    if (messages.length === 0){
-      let $header = $(".project-messages"); 
-      $header.html("No Message(s)")
+    method: 'GET',
+    dataType: 'json',
+    url: `/projects/${id}/messages.json`,
+  }).success(function(messages) {
+    if (messages.length === 0) {
+      let $header = $('.project-messages')
+      $header.html('No Message(s)')
     } else {
-      let $header = $(".project-messages"); 
-      $header.html("Message(s):")
-      let $ul = $("#messages")
+      let $header = $('.project-messages')
+      $header.html('Message(s):')
+      let $ul = $('#messages')
       messages.forEach(message => {
         let newMessage = new Message(message, message.project.id)
-        let messageHtml = newMessage.formatMessages() 
+        let messageHtml = newMessage.formatMessages()
         $ul.append(messageHtml)
-      });
+      })
     }
   })
-};
+}
 
 function Message(message, project_id) {
-
-  this.title = message.title 
-  this.content = message.content 
+  this.title = message.title
+  this.content = message.content
   this.id = message.id
   this.project_id = project_id
 }
 
 Message.prototype.formatMessages = function() {
   let messageHtml = `
-  <li><a href='/projects/${this.project_id}/messages/${this.id}'><strong><u>${this.title}:</strong></u> ${this.content}</a></li>`
-  return messageHtml;
+  <li><a href='/projects/${this.project_id}/messages/${this.id}'><strong><u>${this.title}:</strong></u> ${
+    this.content
+  }</a></li>`
+  return messageHtml
 }
 
-// Submit New Message via AJAX 
-function getMessageForm(element, id){
+// Submit New Message via AJAX
+function getMessageForm(element, id) {
   $.ajax({
-    url: element.getAttribute('href'), 
-    type: "GET", 
+    url: element.getAttribute('href'),
+    type: 'GET',
+  }).success(function(response) {
+    console.log(response)
+    $('.messageResult').html(response)
   })
-  .success(function(response) {
-    $(".messageResult").html(response)
-    });
-  }
+}
 
-function postMessages(element, id){
+function postMessages(element, id) {
   const data = $(element).serialize()
-  $.post(`/projects/${id}/messages.json`, data).success(function(response) {          
+  $.post(`/projects/${id}/messages.json`, data).success(function(response) {
     const newMessage = new Message(response)
     let messageHtml = newMessage.formatMessages()
     $('#messages').prepend(messageHtml)
-    })
-  }
+  })
+}
 
-
-//Loading Tasks 
+//Loading Tasks
 function loadTasks(element, id) {
   $.ajax({
-    method: "GET", 
-    dataType: "json", 
-    url: `/projects/${id}/tasks.json`
-  })
-  .success(function(tasks){ 
+    method: 'GET',
+    dataType: 'json',
+    url: `/projects/${id}/tasks.json`,
+  }).success(function(tasks) {
     if (tasks.length === 0) {
-      let $header = $(".project-tasks");
-      $header.html("No Task(s)")
+      let $header = $('.project-tasks')
+      $header.html('No Task(s)')
     } else {
-      let $header = $(".project-tasks");
-      $header.html("Task(s):")
-      let $ul = $("#tasks")
+      let $header = $('.project-tasks')
+      $header.html('Task(s):')
+      let $ul = $('#tasks')
       tasks.forEach(task => {
         console.log(task)
-        let newTask = new Task(task, task.project.id) 
-        let taskHtml = newTask.formatTask() 
+        let newTask = new Task(task, task.project.id)
+        let taskHtml = newTask.formatTask()
         $ul.append(taskHtml)
-      });
+      })
     }
-  });
+  })
 }
 
 function Task(task, project_id) {
-  this.title = task.title 
+  this.title = task.title
   this.description = task.description
   this.assigned_to = task.assigned_to
-  this.status = task.status 
-  this.id = task.id 
+  this.status = task.status
+  this.id = task.id
   this.project_id = project_id
 }
 
 Task.prototype.formatTask = function() {
-  let taskHtml = `<li><a href='/projects/${this.project_id}/tasks/${this.id}'><strong><u>${this.title}:</strong></u> <br>
+  let taskHtml = `<li><a href='/projects/${this.project_id}/tasks/${this.id}'><strong><u>${
+    this.title
+  }:</strong></u> <br>
   ${this.description}<br><strong>
   Assigned to: </strong>${this.assigned_to}<br><strong>
   Status: </strong>${this.status}</a></li><br>`
-  return taskHtml;
+  return taskHtml
 }
 
 // Submit New Task via AJAX
-function getTaskForm(element, id){
+function getTaskForm(element, id) {
   $.ajax({
     url: element.getAttribute('href'),
-    type: "GET", 
-  })  
-  .success(function(response){
-    $(".taskResult").html(response)
-  });
+    type: 'GET',
+  }).success(function(response) {
+    $('.taskResult').html(response)
+  })
 }
-function postTasks(element, id){
+function postTasks(element, id) {
   const data = $(element).serialize()
-  $.post(`/projects/${id}/tasks.json`, data).success(function(response){
+  $.post(`/projects/${id}/tasks.json`, data).success(function(response) {
     const newTask = new Task(response, id)
-    let taskHtml = newTask.formatTask() 
+    let taskHtml = newTask.formatTask()
     $('#tasks').prepend(taskHtml)
   })
 }
 
 // Rendering next show page of each project
-function nextProject(element, id){
+function nextProject(element, id) {
   const nextId = id + 1
   $.ajax({
-    method: "GET", 
-    dataType: "json", 
-    url: `/projects/${nextId}.json`
-  })
-  .success(function(response){
+    method: 'GET',
+    dataType: 'json',
+    url: `/projects/${nextId}.json`,
+  }).success(function(response) {
     console.log(response)
     const newProject = new Project(response)
     $('.next-project').data('id', nextId)
     $('.next-project').attr('href', `/projects/${nextId}`)
+    $('.load-messages').attr('data-id', nextId)
+    $('.new_message').attr('href', `/projects/${nextId}/messages/new`)
     $('.title').html(newProject.title)
     $('.description').html(newProject.description)
     $('.project-tags').html(newProject.formatTags())
     $('#messages').html(newProject.formatNestedMessages())
     $('#tasks').html(newProject.formatNestedTasks())
-  });
+  })
 }
 
-function Project(project){
+function Project(project) {
   this.id = project.id
-  this.title = project.title 
+  this.title = project.title
   this.description = project.description
   this.tags = project.tags
-  this.messages = project.messages.map(message => new Message(message, project.id)) 
-  this.tasks = project.tasks.map(task => new Task (task))
+  this.messages = project.messages.map(message => new Message(message, project.id))
+  this.tasks = project.tasks.map(task => new Task(task))
 }
 
 Project.prototype.formatProject = function() {
@@ -200,12 +201,12 @@ Project.prototype.formatProject = function() {
   ${this.tags}
   ${this.messages}
   ${this.tasks}
-  </li>` 
+  </li>`
   return projectHtml
 }
 Project.prototype.formatTags = function() {
   let tagsArray = []
-  let tagHtml = this.tags.forEach(function(tag){
+  let tagHtml = this.tags.forEach(function(tag) {
     tagsArray.push(`<li>${tag.name}</li>`)
   })
 
@@ -214,7 +215,7 @@ Project.prototype.formatTags = function() {
 
 Project.prototype.formatNestedMessages = function() {
   let messagesArray = []
-  let messageHtml = this.messages.forEach(function(message){
+  let messageHtml = this.messages.forEach(function(message) {
     messagesArray.push(message.formatMessages())
   })
   return messagesArray.join('')
@@ -222,7 +223,7 @@ Project.prototype.formatNestedMessages = function() {
 
 Project.prototype.formatNestedTasks = function() {
   let tasksArray = []
-  let taskHtml = this.tasks.forEach(function(task){
+  let taskHtml = this.tasks.forEach(function(task) {
     tasksArray.push(task.formatTask())
   })
   return tasksArray.join('')
