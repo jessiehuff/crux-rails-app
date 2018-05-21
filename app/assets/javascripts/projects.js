@@ -38,7 +38,6 @@ function attachProjectListeners() {
     postTasks(this, id);
   });
   $('a.next-project').on('click', function(e){
-    debugger
     const id = $(this).data('id')
     e.preventDefault(); 
     nextProject(this, id);
@@ -61,7 +60,7 @@ function loadMessages(element, id){
       $header.html("Message(s):")
       let $ul = $("#messages")
       messages.forEach(message => {
-        let newMessage = new Message(message)
+        let newMessage = new Message(message, message.project.id)
         let messageHtml = newMessage.formatMessages() 
         $ul.append(messageHtml)
       });
@@ -70,7 +69,7 @@ function loadMessages(element, id){
 };
 
 function Message(message, project_id) {
-  
+
   this.title = message.title 
   this.content = message.content 
   this.id = message.id
@@ -120,7 +119,8 @@ function loadTasks(element, id) {
       $header.html("Task(s):")
       let $ul = $("#tasks")
       tasks.forEach(task => {
-        let newTask = new Task(task) 
+        console.log(task)
+        let newTask = new Task(task, task.project.id) 
         let taskHtml = newTask.formatTask() 
         $ul.append(taskHtml)
       });
