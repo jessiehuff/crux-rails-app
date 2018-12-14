@@ -2,24 +2,37 @@
   <h3><%= "You don't have any projects yet. Would you like to create a new one?" %></h3>
 
 <% else %>
+<br></br>
 <div class="row" id="projectsIndex">
-<h2>Projects:</h2>
-<br>
-  <h3>Search by Project Tag/Category:</h3>
-  <%= form_tag(projects_path, method: :get, id: "search-form") do %>
-    <%= text_field_tag :search, params[:search], placeholder: "Search Projects" %>
-    <%= submit_tag 'Search', name: nil %>
-  <% end %>
-  <br><br>
-  <% @projects.each do |project| %>
-    <div class="card border-light" style="max-width: 15rem; min-width: 15rem;">
-      <div class="project card-body">
-    <h2 class="projectTitle"><%= link_to project.title, project_path(project) %> </h2>
-    <%= project.description%>
-   </div><br>
+  <div class="col-sm-8 col-sm-offset-1">
+    <h2>Projects:</h2>
+    <br>
   </div>
-  <% end %>
-<% end %>
+</div>
+<div class="row" id="projectsIndex">
+  <div class="col-sm-8 col-sm-offset-1">
+    <h3>Search by Project Tag/Category:</h3>
+    <%= form_tag(projects_path, method: :get, id: "search-form") do %>
+      <%= text_field_tag :search, params[:search], placeholder: "Search Projects" %>
+      <%= submit_tag 'Search', name: nil %>
+    <% end %>
+    <br><br>
+  </div>
+</div>
+<div class="row" id="projectsIndex">
+  <div class="col-sm-8 col-sm-offset-1">
+    <% @projects.each do |project| %>
+      <div class="card border-light" style="max-width: 15rem; min-width: 15rem;">
+        <div class="project card-body">
+          <h2 class="projectTitle"><%= link_to project.title, project_path(project) %> </h2>
+          <%= project.description%>
+          <% end %>
+          <% end %>
+        </div>
+      </div>
+  </div>
+</div>
+
 
 <br><br>
 <%= link_to "Add a New Project", new_project_path %><br><br><br>

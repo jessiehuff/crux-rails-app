@@ -1,84 +1,87 @@
-<div class="container" style="width:80%;">
-  <div class="card mb-3">
-
-  <div class="card-body">
-    <div class="row">
-      <div class="col-sm-8">
-      <h3>Project Title:</h3>
-      <h1 class="title">
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-1">
+        <br></br>
+        <h3>Project Title:</h3>
+        <h1 class="title">
         <%= @project.title %> 
-      </h1>
-      <div class="next">
-         <%= link_to "Next Project", project_path(@project), :class => "next-project", :data => {:id => @project.id} %>
-      </div>
-
-
-      <h3 >Description: </h3>
-      <div class="description">
-          <%= @project.description %>
-      </div>
-     
-     
-      <h3> Tags: </h3>
-      <ul class="project-tags">
-        <% @project.tags.each do |tag| %>
-        <li><%= link_to tag.name, project_tag_path(@project, tag), :data => {:id => @project.id} %></li>
-        <% end %>
-      </ul>
-    <h4><%= link_to "Create a New Tag", new_project_tag_path(@project) %></h4>
-      </div>
-     </div>
+        </h1>
     </div>
-  </div>
- </div>
-
-<br><br>
-  <div class="card-body">
-    <div class="row">
-      <div class="col-sm-8">
-      <h2> Project Messages: </h2>
-      <div class="project-messages">
-        <h4><%= link_to "All Messages", project_messages_path(@project), :class => "load-messages", :data => { :id => @project.id } %></h4>
-      </div>
-      <ul id="messages">
-          
-      </ul>
-        <div class="messageResult">
-  
+</div>
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-1">
+        <div class="next">
+            <h2>
+          <%= link_to "Next Project", project_path(@project), :class => "next-project btn btn-primary btn-lg", :data => {:id => @project.id} %></h2>
         </div>
-      <div class="new-message">
-          <h3><%= link_to "Add Message", new_project_message_path(@project), :class => "new_message", :data => {:id => @project.id} %></h3>
-      </div>
-  
-      
-      
     </div>
-  </div>
-
-  <div class="card-body">
-    <div class="row">
-      <div class="col-sm-8">
-      <br><br>
-      <h2> Project Tasks: </h2>
-      <div class="project-tasks">
-        <h4><%= link_to "All Tasks", project_tasks_path(@project), :class => "load-tasks", :data => { :id => @project.id} %></h4>
-      </div>
-        <ul id="tasks">
-
-        </ul>
-      <div class="taskResult">
-
-      </div>
-      <div class="new-task">
-      <h3><%= link_to "Add Task", new_project_task_path(@project), :class => "new-task", :data => {:id => @project.id} %></h3>
-      </div>
-    </div>
-  </div>
 </div>
 
-<br><br>
-<%= link_to "Edit this Project", edit_project_path(@project) %>
-<br><br>
-<%= link_to "Delete this Project", project_path(@project), method: 'delete' %>
-<br><br>
-<%= link_to 'Back', projects_path %>
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-1">
+        <h3>Description: </h3>
+        <div class="description">
+            <%=@project.description %>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-1">
+        <h3> Tags: </h3>
+        <ul class="project-tags">
+            <% @project.tags.each do |tag| %>
+                <li>
+                    <%=link_to tag.name, project_tag_path(@project, tag), :data=>{:id => @project.id} %></li>
+                <% end %>
+        </ul>
+        <h4><%= link_to "Create a New Tag", new_project_tag_path(@project) %></h4>
+    </div>
+</div>
+
+
+<br>
+<br>
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-1">
+        <h2> Project Messages: </h2>
+        <div class="project-messages">
+            <h4><%= link_to "All Messages", project_messages_path(@project), :class => "load-messages", :data => { :id => @project.id } %></h4>
+        </div>
+        <ul id="messages">
+        </ul>
+        <div class="messageResult">
+        </div>
+        <div class="new-message">
+            <h3><%= link_to "Add Message", new_project_message_path(@project), :class => "new_message", :data => {:id => @project.id} %></h3>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-1">
+        <br>
+        <br>
+        <h2> Project Tasks: </h2>
+        <div class="project-tasks">
+            <h4><%= link_to "All Tasks", project_tasks_path(@project), :class => "load-tasks", :data => { :id => @project.id} %></h4>
+        </div>
+        <ul id="tasks">
+        </ul>
+        <div class="taskResult">
+        </div>
+        <div class="new-task">
+            <h3><%= link_to "Add Task", new_project_task_path(@project), :class => "new-task", :data => {:id => @project.id} %></h3>
+        </div>
+    </div>
+</div>
+
+
+<br>
+<br>
+<%=link_to "Edit this Project", edit_project_path(@project) %>
+  <br>
+  <br>
+<%=link_to "Delete this Project", project_path(@project), method: 'delete' %>
+  <br>
+  <br>
+<%=link_to 'Back', projects_path %>

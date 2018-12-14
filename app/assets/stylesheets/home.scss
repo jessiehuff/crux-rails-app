@@ -1,11 +1,11 @@
 .main-background {
-  background: 
-    url('https://i.imgur.com/lFqLgjv.jpg');
-  background-size: cover;
+  // background: 
+  //   url('https://i.imgur.com/lFqLgjv.jpg');
+  // background-size: cover;
 } 
 
  #bottom-usernav {
-   background-color: #ffffff;
+   background-color: clear;
    opacity: 0.8;
  }
 
@@ -29,4 +29,9 @@ a :visited {
 
 .next {
   text-align: right;
+}
+
+body {
+  background: url('https://i.imgur.com/D24aICP.jpg');
+  text-align: left;
 }
