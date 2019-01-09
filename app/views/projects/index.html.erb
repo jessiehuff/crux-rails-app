@@ -5,32 +5,26 @@
 <br></br>
 <br></br> 
 <div class="row" id="projectsIndex">
-  <div class="col-sm-8 col-sm-offset-1">
     <h3>Search by Project Tag/Category:</h3>
     <%= form_tag(projects_path, method: :get, id: "search-form") do %>
       <%= text_field_tag :search, params[:search], placeholder: "Search Projects" %>
       <%= submit_tag 'Search', name: nil %>
     <% end %>
     <br><br>
-  </div>
 </div>
 <div class="new-project">
   <%= link_to "New Project", new_project_path, :class => "btn btn-primary" %>
 </div>
 
-<div class="row" id="projectsIndex">
-  <div class="col-sm-8 col-sm-offset-1">
+
     <% @projects.each do |project| %>
-      <div class="card border-light" style="max-width: 15rem; min-width: 15rem;">
-        <div class="project card-body">
+      <div class="card border-dark mb-3" style="max-width: 15rem; min-width: 15rem;">
           <h2 class="projectTitle"><%= link_to project.title, project_path(project) %> </h2>
           <%= project.description%>
           <% end %>
-          <% end %>
-        </div>
       </div>
-  </div>
-</div>
+    <% end %>
+
 
 
 <br></br><br></br> 
