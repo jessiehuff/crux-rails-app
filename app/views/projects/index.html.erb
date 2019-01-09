@@ -6,12 +6,6 @@
 <br></br> 
 <div class="row" id="projectsIndex">
   <div class="col-sm-8 col-sm-offset-1">
-    <h2>Projects:</h2>
-    <br>
-  </div>
-</div>
-<div class="row" id="projectsIndex">
-  <div class="col-sm-8 col-sm-offset-1">
     <h3>Search by Project Tag/Category:</h3>
     <%= form_tag(projects_path, method: :get, id: "search-form") do %>
       <%= text_field_tag :search, params[:search], placeholder: "Search Projects" %>
@@ -21,7 +15,7 @@
   </div>
 </div>
 <div class="new-project">
-  <%= link_to "Add a New Project", new_project_path %>
+  <%= link_to "New Project", new_project_path, :class => "btn btn-primary" %>
 </div>
 
 <div class="row" id="projectsIndex">
@@ -39,8 +33,10 @@
 </div>
 
 
-<br><br>
+<br></br><br></br> 
 
 <% if current_user %>
-<%= link_to "Sign Out", destroy_user_session_path, {method: :delete}%>
+<h4>
+  <%= link_to "Sign Out", destroy_user_session_path, {method: :delete}%>
+</h4>
 <% end %>
