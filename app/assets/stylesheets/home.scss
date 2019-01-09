@@ -34,6 +34,7 @@ a :visited {
 body {
   background: url('https://i.imgur.com/D24aICP.jpg');
   text-align: left;
+  padding: 20px; 
 }
 
 .new-project{
@@ -54,12 +55,16 @@ body {
 
 .card a{
   width: 100px; 
-  height: 100px; 
-  overflow: hidden; 
-  text-overflow: ellipsis; 
+  height: 100px;
 }
 
 .card-text {
   margin-left: 10px; 
   margin-right: 10px; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+}
+
+.plus {
+  font-size: 80px; 
 }
