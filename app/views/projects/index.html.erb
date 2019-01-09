@@ -18,10 +18,15 @@
 
 
     <% @projects.each do |project| %>
-      <div class="card border-dark mb-3" style="max-width: 15rem; min-width: 15rem;">
-          <h2 class="projectTitle"><%= link_to project.title, project_path(project) %> </h2>
-          <%= project.description%>
-          <% end %>
+      <div class="card">
+          <h2 class="card-header"><%= link_to project.title, project_path(project) %> </h2>
+        <div class="card-body">
+          <p class="card-text">
+            <%= project.description%>
+          </p>
+        </div>
+      </div>
+        <% end %>
       </div>
     <% end %>
 
