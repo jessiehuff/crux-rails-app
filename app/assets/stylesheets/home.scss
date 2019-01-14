@@ -6,6 +6,7 @@
 
  #bottom-usernav {
    background-color: clear;
+   text-align: center; 
    opacity: 0.8;
  }
 
@@ -34,9 +35,14 @@ a :visited {
 body {
   background: url('https://i.imgur.com/D24aICP.jpg');
   text-align: left;
-  padding: 20px; 
+  padding: 1 rem 2rem;
+  margin: 0 auto; 
+  max-width: 860px; 
 }
 
+.main-body {
+  text-align: center; 
+}
 .new-project{
   color: white; 
   text-align: right; 
