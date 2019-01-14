@@ -14,8 +14,14 @@
 </nav>
 <% else %>
 <nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="nav navbar-nav">
-    <h3><%= link_to "Home", root_path %> | <%= link_to "Sign Up", new_user_registration_path %> | <%= link_to "Sign In", new_user_session_path %></h3>
+  <div class="topnav">
+    <h3>
+      <%= link_to "Home", root_path, :class=>"active" %>  
+      
+      <div class="topnav-right">
+        <%= link_to "Sign Up", new_user_registration_path %> | <%= link_to "Sign In", new_user_session_path %>
+      </div> 
+    </h3>
   </div>
 </nav>
 <% end %>
