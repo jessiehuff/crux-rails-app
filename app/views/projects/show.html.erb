@@ -1,7 +1,6 @@
 <div class="row">
     <div class="col-sm-8 col-sm-offset-1">
-        <br></br>
-        <h3>Project Title:</h3>
+        <br></br><br></br> 
         <h1 class="title">
         <%= @project.title %> 
         </h1>
@@ -11,11 +10,16 @@
     <div class="col-sm-8 col-sm-offset-1">
         <div class="next">
             <h2>
-          <%= link_to "Next Project", project_path(@project), :class => "next-project btn btn-primary btn-lg", :data => {:id => @project.id} %></h2>
+                <%= link_to "Next Project", project_path(@project), :class => "next-project btn btn-primary btn-md", :data => {:id => @project.id} %></h2>
+        </div>
+        <div class="next">
+            <h2>
+                <%=link_to "Edit Project", edit_project_path(@project), :class => "edit project btn btn-primary btn-md" %>
+            </h2>
         </div>
     </div>
 </div>
-
+<br></br> 
 <div class="row">
     <div class="col-sm-8 col-sm-offset-1">
         <h3>Description: </h3>
@@ -75,10 +79,6 @@
     </div>
 </div>
 
-
-<br>
-<br>
-<%=link_to "Edit this Project", edit_project_path(@project) %>
   <br>
   <br>
 <%=link_to "Delete this Project", project_path(@project), method: 'delete' %>
