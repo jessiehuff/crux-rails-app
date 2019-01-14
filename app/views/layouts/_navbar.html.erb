@@ -1,13 +1,13 @@
 <% if user_signed_in? %>
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="topnav">
-    <h3><a class="active">
-        <%= link_to "Projects", projects_path %></a> 
+    <h3>
+        <%= link_to "Projects", projects_path, :class=> "active"%>
         
         <div class="topnav-right">
-          <a><%= link_to "Your Profile", current_user %> | </a> 
+          <%= link_to "Your Profile", current_user %> | 
           
-          <a><%= link_to "Sign Out", destroy_user_session_path, {method: :delete} %></a> 
+          <%= link_to "Sign Out", destroy_user_session_path, {method: :delete} %>
         </div>
     </h3>
   </div>
